@@ -157,7 +157,9 @@ export default function Search({ categories, brands }: SearchPropsType) {
                             {cat.name}
                           </a>
                         </Link>
-                            <ul>
+                            <ul
+                              className={'lg:px-10'}
+                            >
                                 {cat.subCategories.map( (category: any) => (
                                   <li key={category.id}>
                                     <a 
