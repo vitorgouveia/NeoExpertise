@@ -23,10 +23,31 @@ export default function getSiteInfoOperation({}: OperationContext<any>) {
     return Promise.resolve({
       categories: [
         {
-          id: 'Informática',
-          name: 'Informática',
-          slug: 'Informática',
-          path: '/Informática',
+          id: 'informatics',
+          name: 'Informatics',
+          slug: 'informatics',
+          path: '/informatics',
+
+          subCategories: [
+            {
+              id: 'hardware',
+              name: 'Hardware',
+              slug: 'hardware',
+              path: '/hardware',
+            },
+            {
+              id: 'peripherals',
+              name: 'Peripherals And Accessories',
+              slug: 'peripherals',
+              path: '/peripherals',
+            },
+          ],
+        },
+        {
+          id: 'featured',
+          name: 'Featured',
+          slug: 'featured',
+          path: '/featured',
 
           subCategories: [
             {
@@ -40,31 +61,9 @@ export default function getSiteInfoOperation({}: OperationContext<any>) {
               name: 'Informática',
               slug: 'Informática',
               path: '/Informática',
-            }
-          ]
+            },
+          ],
         },
-        {
-          id: 'featured',
-          name: 'Featured',
-          slug: 'featured',
-          path: '/featured',
-
-          subCategories: [
-              {
-                id: 'Informática',
-                name: 'Informática',
-                slug: 'Informática',
-                path: '/Informática',
-              },
-              {
-                id: 'Informática2',
-                name: 'Informática',
-                slug: 'Informática',
-                path: '/Informática',
-              }
-            ]
-          },
-
       ],
       brands: [],
     })
