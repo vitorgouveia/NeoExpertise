@@ -23,16 +23,58 @@ export default function getSiteInfoOperation({}: OperationContext<any>) {
     return Promise.resolve({
       categories: [
         {
-          id: 'new-arrivals',
-          name: 'New Arrivals',
-          slug: 'new-arrivals',
-          path: '/new-arrivals',
+          id: 'informatics',
+          name: 'Informatics',
+          slug: 'informatics',
+          path: '/informatics',
+
+          subCategories: [
+            {
+              id: 'hardware',
+              name: 'Hardware',
+              slug: 'hardware',
+              path: '/hardware',
+            },
+            {
+              id: 'peripherals',
+              name: 'Peripherals And Accessories',
+              slug: 'peripherals',
+              path: '/peripherals',
+            },
+            {
+              id: 'assembled',
+              name: 'Pre-Assembled Computers',
+              slug: 'assembled',
+              path: '/assembled',
+            },
+          ],
         },
         {
-          id: 'featured',
-          name: 'Featured',
-          slug: 'featured',
-          path: '/featured',
+          id: 'consoles',
+          name: 'Consoles',
+          slug: 'consoles',
+          path: '/consoles',
+
+          subCategories: [
+            {
+              id: 'xbox',
+              name: 'Xbox',
+              slug: 'xbox',
+              path: '/xbox',
+            },
+            {
+              id: 'playstation',
+              name: 'Playstation',
+              slug: 'playstation',
+              path: '/playstation',
+            },
+            {
+              id: 'nintendo',
+              name: 'Nintendo',
+              slug: 'nintendo',
+              path: '/nintendo',
+            },
+          ],
         },
       ],
       brands: [],

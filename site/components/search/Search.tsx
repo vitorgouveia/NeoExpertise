@@ -14,6 +14,8 @@ import useSearch from '@framework/product/use-search'
 import getSlug from '@lib/get-slug'
 import rangeMap from '@lib/range-map'
 
+import ss from './Search.module.css'
+
 const SORT = {
   'trending-desc': 'Trending',
   'latest-desc': 'Latest arrivals',
@@ -31,7 +33,7 @@ import {
 export default function Search({ categories, brands }: SearchPropsType) {
   const [activeFilter, setActiveFilter] = useState('')
   const [toggleFilter, setToggleFilter] = useState(false)
-
+  console.log(categories)
   const router = useRouter()
   const { asPath, locale } = router
   const { q, sort } = router.query
@@ -104,7 +106,9 @@ export default function Search({ categories, brands }: SearchPropsType) {
                   : ''
               }`}
             >
-              <div className="rounded-sm bg-accent-0 shadow-xs lg:bg-none lg:shadow-none">
+              <div
+                className={`rounded-sm bg-accent-0 shadow-xs lg:bg-none lg:shadow-none ${ss.allCategories}`}
+              >
                 <div
                   role="menu"
                   aria-orientation="vertical"
@@ -125,7 +129,7 @@ export default function Search({ categories, brands }: SearchPropsType) {
                         <a
                           onClick={(e) => handleClick(e, 'categories')}
                           className={
-                            'block lg:inline-block px-4 py-2 lg:p-0 lg:my-2 lg:mx-4'
+                            'block lg:inline-block px-4 py-2 lg:p-0 lg:my-2 lg:mx-2'
                           }
                         >
                           All Categories
@@ -136,7 +140,7 @@ export default function Search({ categories, brands }: SearchPropsType) {
                       <li
                         key={cat.path}
                         className={cn(
-                          'block text-sm leading-5 text-accent-4 hover:bg-accent-1 lg:hover:bg-transparent hover:text-accent-8 focus:outline-none focus:bg-accent-1 focus:text-accent-8',
+                          'block text-sm leading-5 text-accent-4  focus:outline-none focus:bg-accent-1 focus:text-accent-8',
                           {
                             underline: activeCategory?.id === cat.id,
                           }
@@ -151,12 +155,29 @@ export default function Search({ categories, brands }: SearchPropsType) {
                           <a
                             onClick={(e) => handleClick(e, 'categories')}
                             className={
-                              'block lg:inline-block px-4 py-2 lg:p-0 lg:my-2 lg:mx-4'
+                              'block lg:inline-block px-4 py-2 lg:p-0 lg:my-2 lg:mx-2 hover:bg-accent-1 lg:hover:bg-transparent hover:text-accent-8'
                             }
                           >
                             {cat.name}
                           </a>
                         </Link>
+                        <ul className={'lg:pl-4'}>
+                          {cat.subCategories.map((category: any) => (
+                            <li key={category.id}>
+                              <a
+                                href="#"
+                                className={
+                                  'block lg:inline-block px-6 py-2 lg:p-0 lg:my-2 lg:mx-2 hover:bg-accent-1 lg:hover:bg-transparent hover:text-accent-8'
+                                }
+                              >
+                                {category.name}
+                              </a>
+                              <ul>
+                                <li></li>
+                              </ul>
+                            </li>
+                          ))}
+                        </ul>
                       </li>
                     ))}
                   </ul>
@@ -226,7 +247,7 @@ export default function Search({ categories, brands }: SearchPropsType) {
                         <a
                           onClick={(e) => handleClick(e, 'brands')}
                           className={
-                            'block lg:inline-block px-4 py-2 lg:p-0 lg:my-2 lg:mx-4'
+                            'block lg:inline-block px-4 py-2 lg:p-0 lg:my-2 lg:mx-2'
                           }
                         >
                           All Designers
@@ -253,7 +274,7 @@ export default function Search({ categories, brands }: SearchPropsType) {
                           <a
                             onClick={(e) => handleClick(e, 'brands')}
                             className={
-                              'block lg:inline-block px-4 py-2 lg:p-0 lg:my-2 lg:mx-4'
+                              'block lg:inline-block px-4 py-2 lg:p-0 lg:my-2 lg:mx-2'
                             }
                           >
                             {node.name}
@@ -391,7 +412,7 @@ export default function Search({ categories, brands }: SearchPropsType) {
                         <a
                           onClick={(e) => handleClick(e, 'sort')}
                           className={
-                            'block lg:inline-block px-4 py-2 lg:p-0 lg:my-2 lg:mx-4'
+                            'block lg:inline-block px-4 py-2 lg:p-0 lg:my-2 lg:mx-2'
                           }
                         >
                           Relevance
@@ -417,7 +438,7 @@ export default function Search({ categories, brands }: SearchPropsType) {
                           <a
                             onClick={(e) => handleClick(e, 'sort')}
                             className={
-                              'block lg:inline-block px-4 py-2 lg:p-0 lg:my-2 lg:mx-4'
+                              'block lg:inline-block px-4 py-2 lg:p-0 lg:my-2 lg:mx-2'
                             }
                           >
                             {text}
