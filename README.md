@@ -1,3 +1,6 @@
+<!-- =============================== -->
+<!-- HEADER -->
+<!-- =============================== -->
 <img src=".github/assets/divider.svg" alt="A rainbown divider for the readme content" />
 
 &nbsp;
@@ -15,6 +18,10 @@
 
 &nbsp;
 
+<!-- =============================== -->
+<!-- USEFUL LINKS -->
+<!-- =============================== -->
+
 <div align="center">
   <table>
     <tr>
@@ -29,3 +36,51 @@
     </tr>
   </table>
 </div>
+
+&nbsp;
+
+<!-- =============================== -->
+<!-- TABLE OF CONTENTS -->
+<!-- =============================== -->
+## Table Of Contents
+
+- [Dados do projeto](#dados-do-projeto) 
+  - [💾 Título do projeto](#titulo-do-projeto)
+  - [🔭 Objetivo](#objetivo)
+  - [📌 Justificativa](#justificativa)
+  - [👤 Integrantes](#integrantes)
+  - [📅 Calendário](#calendario)
+- [Categorizações](#categorizações)
+  - [❓ Tipo De Site](#tipo-de-site)
+  - [🎯 Público Alvo](#publico-alvo)
+  - [💢 Concorrentes](#concorrentes)
+- [Ambiente De Desenvolvimento](#ambiente-de-desenvolvimento)
+  - [Versão do Node.js](#versao-do-node-js)
+  - [Yarn ou NPM/PNPM](#yarn-ou-npm/pnpm)
+  - [Yarn Workspaces](#yarn-workspaces)
+- [Git Workflow](#git-workflow)
+- [Releases](#releases)
+- [Arquitetura](#arquitetura)
+- [Linguagens e Tecnologias](#linguagens-e-tecnologias)
+- [Testes](#testes)
+  - [Testes De Design](#testes-de-design)
+- [Accessibilidade](#accessibilidade)
+  - [🎨 Cor](#cor)
+  - [📄 Formulários](#formularios)
+  - [📷 Multimídia](#multimidia)
+  - [📝 Estrutura De Um Documento](#estrutura-de-um-documento)
+- [Figma](#figma)
+  - [🍥 Design System](#design-system)
+  - [♣️ Style Guide](#style-guide)
+  - [🧰 UI Kit](#ui-kit)
+    - [🌐 Figma - Glossário](#figma-glossario)
+- [Formação Da Idéia](#formação-da-ideia)
+  - [🆔 Registro Do Domínio](#registro-do-dominio)
+  - [📱 Layout](#layout)
+  - [👥 Equipe](#equipe)
+    - [Design](#design)
+    - [Front-End - Back-End](#frontend-backend)
+    - [Documentação - Lições](#documentação-lições)
+- [Atribuições](#atribuições)
+- [Arquivamento](#arquivamento)
+  - [🗃️ Repositório](#repositório)
