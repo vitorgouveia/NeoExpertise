@@ -28,7 +28,7 @@
           overflow: hidden;
           background: linear-gradient(124deg, #ff2400, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, hsl(320, 90%, 50%));
           background-size: 1800% 1800%;
-          animation: rainbow 18s ease infinite;
+          animation: rainbow 10s ease infinite;
         }
       </style>
 
