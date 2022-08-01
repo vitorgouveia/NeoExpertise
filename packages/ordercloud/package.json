@@ -49,8 +49,8 @@
   "dependencies": {
     "@vercel/commerce": "^0.0.1",
     "@vercel/fetch": "^6.1.1",
-    "stripe": "^8.197.0",
-    "lodash.debounce": "^4.0.8"
+    "lodash.debounce": "^4.0.8",
+    "stripe": "^8.197.0"
   },
   "peerDependencies": {
     "next": "^12",
