@@ -22,5 +22,6 @@
     "hooks": {
       "pre-commit": "turbo run lint"
     }
-  }
+  },
+  "packageManager": "yarn@3.2.2"
 }
