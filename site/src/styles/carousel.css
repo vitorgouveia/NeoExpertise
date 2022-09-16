@@ -1,0 +1,65 @@
+/* idea of resizable padding */
+/* from */
+/* :root {
+  --section-horizontal-padding: var(--size-400);
+  padding: 0 var(--section-horizontal-padding);
+
+  @media screen and (min-width: 768px) {
+    --section-horizontal-padding: var(--size-500);
+  }
+
+  @media screen and (min-width: 1024px) {
+    --section-horizontal-padding: 0;
+    max-width: 768px;
+  }
+} */
+
+/* to */
+/* var(--fluid-size) is a clamp function pegged to the viewport width */
+/* same tech used for resizable fonts */
+/* this kills any use of media queries whatsoever */
+/* :root {
+  --section-horizontal-padding: var(--fluid-size-400);
+
+  @media screen and (min-width: 1024px) {
+    --section-horizontal-padding: 0;
+    max-width: 768px;
+  }
+} */
+
+.swiper {
+  width: 100%;
+  /* height: 60vh; */
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #121212;
+
+  /* Center slide text vertically */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  display: none !important;
+}

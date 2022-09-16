@@ -1,0 +1,176 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id String @id @default(uuid())
+
+  name        String
+  slug        String
+  description String
+
+  // create rating model
+  rating Int
+
+  // differentiate between a vista e credito
+  // add discount percent in here too
+  price Float
+
+  images        String[]
+  blurredImages String[]
+
+  sold Int @default(0)
+
+  departmentSlug String
+  department     Department @relation(fields: [departmentSlug], references: [slug])
+
+  stripeId String @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("products")
+}
+
+model Computer {
+  id String @id @default(uuid())
+
+  name        String
+  slug        String
+  description String
+
+  isPrimary Boolean @default(false)
+
+  images String[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("computers")
+}
+
+model Brand {
+  name  String
+  index Int    @unique @default(autoincrement())
+  slug  String @id @unique
+
+  brandLogoUrl    String
+  backgroundColor String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("brands")
+}
+
+model Department {
+  name String
+  slug String @id @unique
+
+  imgUrl       String
+  soldProducts Int    @default(0)
+
+  products       Product[]
+  subDepartments SubDepartment[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("departments")
+}
+
+model SubDepartment {
+  name String
+  slug String @id @unique
+
+  imgUrl       String
+  soldProducts Int    @default(0)
+
+  departmentSlug String
+  department     Department @relation(fields: [departmentSlug], references: [slug])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("sub-departments")
+}
+
+model Contributor {
+  name        String
+  description String
+  slug        String @id @unique
+
+  // contributor page configuration
+  socialMediaId String
+  socialMedia   SocialMedia[]
+
+  imgUrl         String
+  imgDescription String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("contributors")
+}
+
+model SocialMedia {
+  id           String @id @default(uuid())
+  platformName String @unique
+  link         String
+
+  contributorSlug String
+  contributor     Contributor @relation(fields: [contributorSlug], references: [slug])
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
