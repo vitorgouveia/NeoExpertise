@@ -21,11 +21,11 @@ export const Button = styled('button', {
       },
       outlined: {
         background: '$grayDarkest',
-        border: '1px solid $grayLightest',
+        border: '2px solid $grayLightest',
 
-        // '&:hover': {
-        //   borderColor: 'blueviolet',
-        // },
+        '&:hover, &:focus': {
+          borderColor: 'blueviolet',
+        },
       },
       link: {
         padding: 0,

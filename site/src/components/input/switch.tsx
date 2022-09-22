@@ -5,7 +5,10 @@ import { styled } from '@/stitches.config'
 const StyledSwitch = styled(SwitchPrimitive.Root, {
   all: 'unset',
 
-  width: '32px',
+  cursor: 'pointer',
+
+  '--toggle-size': '32px',
+  width: 'var(--toggle-size)',
   height: '20px',
 
   backgroundColor: 'transparent',
@@ -18,12 +21,14 @@ const StyledSwitch = styled(SwitchPrimitive.Root, {
   // boxShadow: `0 2px 10px red`,
   // WebkitTapHighlightColor: 'rgba(0, 0, 0, 0)',
 
-  '&:focus': {
-    borderColor: '$grayLighter',
-    // boxShadow: `0 0 0 2px black`,
-    span: {
-      background: '$grayLighter',
-    },
+  '&:focus-visible': {
+    outlineOffset: '2px',
+    outline: '2px solid $grayLighter',
+    // borderColor: '$grayLightest',
+    // // boxShadow: `0 0 0 2px black`,
+    // span: {
+    //   background: '$grayLightest',
+    // },
   },
 
   '&[data-state="checked"]': {
@@ -33,8 +38,9 @@ const StyledSwitch = styled(SwitchPrimitive.Root, {
 
 const StyledThumb = styled(SwitchPrimitive.Thumb, {
   display: 'block',
-  width: '14px',
-  height: '14px',
+  '--thumb-size': '14px',
+  width: 'var(--thumb-size)',
+  height: 'var(--thumb-size)',
   backgroundColor: 'white',
   borderRadius: '9999px',
   // boxShadow: `0 2px 2px red`,
@@ -43,7 +49,7 @@ const StyledThumb = styled(SwitchPrimitive.Thumb, {
   willChange: 'transform',
 
   '&[data-state="checked"]': {
-    transform: 'translateX(calc(32px - 14px - 4px))',
+    transform: 'translateX(calc(var(--toggle-size) - var(--thumb-size) - 4px))',
   },
 })
 

@@ -2,6 +2,7 @@ import { GetServerSideProps, NextPage } from 'next'
 import * as Icons from 'phosphor-react'
 import { prisma } from '@/lib/prisma'
 import { Contributor } from '@prisma/client'
+// @ts-ignore
 import Typical from 'react-typical'
 import Link from 'next/link'
 

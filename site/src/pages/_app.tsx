@@ -27,7 +27,7 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
   return getLayout(
     <ThemeProvider>
       <SessionProvider session={pageProps.session}>
-        {/* <Header categories={categories} /> */}
+        <Header categories={categories} />
 
         <Component {...pageProps} />
 
