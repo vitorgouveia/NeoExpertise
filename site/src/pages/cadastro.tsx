@@ -1,10 +1,11 @@
 import { NextPage } from 'next'
 import Router from 'next/router'
 import Link from 'next/link'
+import { trpc } from '@/lib/trpc'
 import { DiscordLogoIcon, GitHubLogoIcon } from '@radix-ui/react-icons'
 import { UserCircle, GoogleLogo } from 'phosphor-react'
 import { styled } from '@/stitches.config'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 
 import { signIn } from 'next-auth/react'
 import { Heading } from '@/components/heading'
@@ -77,23 +78,53 @@ const SOCIAL_LOGIN_LOGO_SIZE = 24
 // type Providers = BuiltInProviderType
 
 const Perfil: NextPage = () => {
+  const createAccount = trpc.useMutation(['create-account'])
   // const [keepSession, setKeepSession] = useState(false)
 
+  const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [formErrorMessage, setFormErrorMessage] = useState('')
+
+  const handleCreateAccount = useCallback(async () => {
+    createAccount.mutate(
+      {
+        name,
+        email,
+        password,
+      },
+      {
+        onSuccess: async () => {
+          const response = await signIn('credentials', {
+            email,
+            password,
+            redirect: true,
+            callbackUrl: '/perfil',
+          })
+        },
+      }
+    )
+  }, [createAccount, email, name, password])
 
   return (
     <Container>
       <UserCircle size={100} weight="thin" />
 
-      <Heading.subtitle>Entre Com Sua Conta</Heading.subtitle>
+      <Heading.subtitle>Crie A Sua Conta</Heading.subtitle>
 
       <Heading.subtitle2
         css={{ fontWeight: '400', color: '$grayLighter', textAlign: 'center' }}
       >
-        Para experienciar o melhor do e-commerce de jogos.
+        E Experience O Melhor Do E-Commerce De Jogos
       </Heading.subtitle2>
+
+      {createAccount.error && (
+        <Heading.subtitle3
+          css={{ textAlign: 'center', color: '$dangerNormal' }}
+        >
+          {createAccount.error.message}
+        </Heading.subtitle3>
+      )}
 
       {formErrorMessage && (
         <Heading.subtitle3
@@ -102,6 +133,20 @@ const Perfil: NextPage = () => {
           {formErrorMessage}
         </Heading.subtitle3>
       )}
+
+      <Input.WithLabel
+        style={InputStyles.root}
+        type="text"
+        value={name}
+        onChange={(event) => setName(event.target.value)}
+        placeholder="Fulano de Tal"
+      >
+        <Input.Label>
+          <div style={InputStyles.label}>
+            <Heading.subtitle3>Nome Completo</Heading.subtitle3>
+          </div>
+        </Input.Label>
+      </Input.WithLabel>
 
       <Input.WithLabel
         style={InputStyles.root}
@@ -138,54 +183,16 @@ const Perfil: NextPage = () => {
         </Input.Label>
       </Input.WithLabel>
 
-      {/* <Section>
-        <Switch
-          id="session-switcher"
-          css={{
-            '--toggle-size': '50px',
-            height: '28px',
-            background: keepSession
-              ? '$primaryNormal !important'
-              : 'transparent',
-          }}
-          defaultChecked={keepSession}
-          checked={keepSession}
-          onCheckedChange={(value) => setKeepSession(value)}
-        >
-          <SwitchThumb
-            css={{
-              '--thumb-size': '20px',
-            }}
-          />
-        </Switch>
-
-        <Heading.paragraph>Manter a minha sessão</Heading.paragraph>
-      </Section> */}
-
       <Button
         variant="outlined"
         css={{ width: '100%', borderColor: '$grayNormal' }}
-        onClick={async () => {
-          const response = await signIn('credentials', {
-            email,
-            password,
-            redirect: false,
-          })
-
-          if (response?.error) {
-            return setFormErrorMessage('Credenciais incorretas')
-          }
-
-          if (response?.ok) {
-            await Router.push('/')
-          }
-        }}
+        onClick={handleCreateAccount}
       >
         <Heading.subtitle3>Entre na NeoExpertise</Heading.subtitle3>
       </Button>
 
       <Section css={{ flexDirection: 'column' }}>
-        <Heading.paragraph>Ou Continue Com:</Heading.paragraph>
+        <Heading.paragraph>Ou Crie Com:</Heading.paragraph>
 
         <Section
           css={{
@@ -252,17 +259,12 @@ const Perfil: NextPage = () => {
         </Section>
       </Section>
 
-      <Link href="/cadastro" passHref>
+      <Link href="/login" passHref>
         <Heading.paragraph
           as={'a'}
           css={{ display: 'flex', gap: '$sizes$100' }}
         >
-          Não tem uma conta?{' '}
-          <Button variant="link">
-            <Heading.paragraph>
-              <strong>Cadastre-se</strong>
-            </Heading.paragraph>
-          </Button>
+          Já tem conta?
         </Heading.paragraph>
       </Link>
     </Container>

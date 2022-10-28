@@ -1,18 +1,18 @@
 export const categories = [
   {
-    name: 'Categoria 1',
-    href: '/categoria1',
+    name: 'Hardware',
+    href: '/hardware-e-peças',
   },
   {
-    name: 'Categoria 2',
-    href: '/categoria2',
+    name: 'Periférico',
+    href: '/perifericos',
   },
   {
-    name: 'Categoria 3',
-    href: '/categoria3',
+    name: 'Utilitário',
+    href: '/utilitarios-tecnologicos',
   },
   {
-    name: 'Categoria 4',
-    href: '/categoria4',
+    name: 'Decorativo',
+    href: '/decorativos',
   },
 ]

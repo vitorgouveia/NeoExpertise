@@ -58,7 +58,7 @@ const NavigationProgress = styled('div', {
   display: 'none',
   alignItems: 'center',
 
-  zIndex: 30,
+  zIndex: 15,
   gap: '$sizes$100',
 
   position: 'absolute !important',
@@ -177,7 +177,7 @@ export const NavigationButton = styled('button', {
   position: 'absolute',
 
   top: '50%',
-  zIndex: 20,
+  zIndex: 10,
 
   display: 'none',
 
@@ -225,7 +225,7 @@ const ProductCard = styled('div', {
   left: '10vw',
   // left: 'calc($sizes$1000 * 2)',
   transform: 'translate(0%, -50%)',
-  zIndex: 20,
+  zIndex: 10,
   bottom: '10%',
 
   '> *:not(h1)': {
@@ -269,7 +269,7 @@ const ProductBackgroundImageContainer = styled('div', {
 
     aspectRatio: '1',
 
-    background: 'rgba(0, 0, 0, 0.5)',
+    background: 'rgba(0, 0, 0, 0.8)',
 
     width: '100%',
     height: '100%',
@@ -279,7 +279,7 @@ const ProductBackgroundImageContainer = styled('div', {
     left: '50%',
     transform: 'translate(-50%, -50%)',
 
-    zIndex: 10,
+    zIndex: 5,
   },
 })
 
@@ -348,8 +348,8 @@ const Carousel: FunctionComponent = () => {
             setAutoplayRunning(false)
           })
         }
-        // slidesPerView={1.04}
-        slidesPerView="auto"
+        slidesPerView={1.3}
+        // slidesPerView="auto"
         style={{
           background: theme.colors['grayDarkest'].value,
           width: '100%',

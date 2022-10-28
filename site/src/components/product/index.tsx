@@ -74,7 +74,7 @@ const ProductContent = styled('main', {
   flexDirection: 'column',
   gap: '$sizes$200',
   alignItems: 'flex-start',
-  justifyContent: 'flex-start',
+  justifyContent: 'space-between',
 
   padding: '$sizes$200',
 })

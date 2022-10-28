@@ -24,38 +24,42 @@ const Container = styled('main', {
 
 const DepartmentsGrid = styled('section', {
   width: '100%',
-  height: '400px',
-  overflow: 'auto',
 
-  display: 'flex',
+  '@mobile': {
+    height: '400px',
+    overflow: 'auto',
 
-  '> a': {
-    width: '600px',
-    maxWidth: 'none',
-    height: '100%',
-    gridArea: 'none',
+    display: 'flex',
+
+    '> a': {
+      width: '600px',
+      maxWidth: 'none',
+      height: '100%',
+      gridArea: 'none',
+    },
   },
 
-  // '@desktop': {
-  //   height: '60vh',
-  //   maxHeight: '500px',
-  //   display: 'grid',
-  //   gridTemplateAreas: `
-  //     "category-0 category-1"
-  //     "category-0 category-2"
-  //     "category-0 category-2"
-  //   `,
-  //   gap: '$sizes$200',
+  '@desktop': {
+    height: '60vh',
+    maxHeight: '500px',
+    display: 'grid',
 
-  //   '> *': {
-  //     width: '100%',
-  //   },
-  // },
+    gridTemplateAreas: `
+      "category-0 category-1"
+      "category-0 category-2"
+      "category-0 category-2"
+    `,
+    gap: '$sizes$200',
+
+    // '> *': {
+    //   width: '100%',
+    // },
+  },
 })
 
 const DepartmentCardRoot = styled('a', {
-  // width: '100%',
-  // height: '100%',
+  width: '100%',
+  height: '100%',
 
   display: 'flex',
   alignItems: 'flex-end',
@@ -85,6 +89,8 @@ const DepartmentTitle = styled('section', {
 
 const DepartmentList = styled('ul', {
   width: '100%',
+  height: 'max-content',
+
   display: 'flex',
   alignItems: 'center',
   gap: '$sizes$200',
@@ -92,8 +98,12 @@ const DepartmentList = styled('ul', {
   overflow: 'auto',
 
   li: {
-    flex: 1,
-    height: '100%',
+    width: '100%',
+
+    '@desktop': {
+      height: '268px',
+    },
+    // height: '100%',
   },
 })
 
@@ -110,6 +120,7 @@ const DepartmentCard: FunctionComponent<{
           ...css,
           backgroundPosition: 'center',
           backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)), url("${imgUrl}")`,
+          backgroundRepeat: 'no-repeat',
         }}
       >
         <DepartmentTitle>
@@ -164,10 +175,7 @@ const Catalogo: NextPage<{
         <DepartmentList>
           {departmentList?.map((props) => (
             <li key={props.slug}>
-              <DepartmentCard
-                css={{ aspectRatio: '1/1', height: 'auto' }}
-                {...props}
-              />
+              <DepartmentCard css={{ height: '100%' }} {...props} />
             </li>
           ))}
         </DepartmentList>
@@ -187,10 +195,19 @@ const Catalogo: NextPage<{
           </Link>
 
           {subDepartments.length > 0 && (
-            <DepartmentList css={{ height: '300px' }}>
+            <DepartmentList
+              css={{
+                paddingBottom: '1rem',
+                li: { '@desktop': { height: '300px !important' } },
+              }}
+            >
               {subDepartments.map((subDepartment) => (
                 <li
-                  style={{ minWidth: '300px !important' }}
+                  style={{
+                    width: '300px !important',
+                    aspectRatio: '1/1',
+                    height: 'auto !important',
+                  }}
                   key={subDepartment.slug}
                 >
                   <Link

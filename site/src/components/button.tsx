@@ -17,7 +17,7 @@ export const Button = styled('button', {
     variant: {
       default: {
         background: '$grayDarkest',
-        border: '1px solid $grayNormal',
+        border: '1px solid $grayLighter',
       },
       outlined: {
         background: '$grayDarkest',

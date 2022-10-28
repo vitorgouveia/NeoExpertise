@@ -1,6 +1,10 @@
 import NextAuth, { NextAuthOptions } from 'next-auth'
+import { compare } from 'bcrypt'
+
 import Discord from 'next-auth/providers/discord'
+import Github from 'next-auth/providers/github'
 import Credentials from 'next-auth/providers/credentials'
+import Google from 'next-auth/providers/google'
 
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import { prisma } from '@/lib/prisma'
@@ -8,9 +12,17 @@ import { prisma } from '@/lib/prisma'
 export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
   adapter: PrismaAdapter(prisma),
+  session: {
+    strategy: 'jwt',
+  },
+  secret: process.env.JWT_SECRET!,
+  pages: {
+    signIn: '/login',
+  },
   providers: [
     Credentials({
-      name: 'Email-and-Password',
+      name: 'neoexpertise',
+      type: 'credentials',
       credentials: {
         email: {
           label: 'Email',
@@ -23,26 +35,47 @@ export const authOptions: NextAuthOptions = {
         },
       },
       async authorize(credentials, request) {
-        try {
-          const user = await prisma.user.findFirst({
-            where: {
-              email: credentials?.email,
-            },
-          })
-
-          return {
-            id: 0,
-            name: 'vitor',
-            email: 'vitor.gouveia@gmail.com',
-          }
-        } catch (error) {
+        if (!credentials?.email || !credentials.password) {
           return null
+        }
+
+        const user = await prisma.user.findFirst({
+          where: {
+            email: credentials?.email,
+          },
+        })
+
+        if (!user) {
+          return null
+        }
+
+        const passwordMatch = await compare(
+          credentials?.password!,
+          user.password
+        )
+
+        if (!passwordMatch) {
+          return null
+        }
+
+        return {
+          name: user.name,
+          email: user.email,
+          image: user.image,
         }
       },
     }),
+    Google({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    }),
+    Github({
+      clientId: process.env.GITHUB_CLIENT_ID!,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET!,
+    }),
     Discord({
-      clientId: '1014269173343473714',
-      clientSecret: 'fcpsON9gRZqL65dEWa2kUuyIaK-YqWXv',
+      clientId: process.env.DISCORD_CLIENT_ID!,
+      clientSecret: process.env.DISCORD_CLIENT_SECRET!,
     }),
   ],
 }

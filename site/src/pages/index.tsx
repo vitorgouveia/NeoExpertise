@@ -35,7 +35,7 @@ const SectionRoot = styled('section', {
   },
 
   '@desktop': {
-    padding: '$sizes$200 !important',
+    padding: '$sizes$500 $sizes$200 !important',
   },
 
   gap: '$sizes$200',
@@ -79,7 +79,7 @@ const SectionHeader = styled('header', {
 
 const ProductGrid = styled('ul', {
   display: 'flex',
-  alignItems: 'center',
+  alignItems: 'stretch',
   flexWrap: 'wrap',
   gap: '$sizes$400',
 
@@ -92,7 +92,7 @@ const ProductGrid = styled('ul', {
   },
 
   '@desktop': {
-    gap: '$sizes$200',
+    gap: '$sizes$800',
     justifyContent: 'unset',
     li: {
       width: 'max-content',
@@ -128,11 +128,21 @@ const Home: NextPageWithLayout = () => {
           </Link>
         </SectionHeader>
 
-        <ProductGrid>
+        <ProductGrid css={{ justifyContent: 'center' }}>
           {!isLoading &&
             products?.map((props, index) => (
-              <li style={{ width: '100%' }} key={index}>
-                <Product css={{ width: '100%' }} {...props} />
+              <li
+                style={{ width: '230px', height: '490px !important' }}
+                key={index}
+              >
+                <Product
+                  css={{
+                    width: '100%',
+                    height: '100%',
+                    justifyContent: 'space-between',
+                  }}
+                  {...props}
+                />
               </li>
             ))}
         </ProductGrid>
@@ -303,12 +313,7 @@ const EmptyDepartment: FunctionComponent<{
     )
   }
 
-  return (
-    <div>
-      <h1>the list ended</h1>
-      <h1>buy from {departments[0]?.name}</h1>
-    </div>
-  )
+  return null
 }
 
 function Departments() {
@@ -345,36 +350,47 @@ function Departments() {
         </Link>
       </SectionHeader>
 
-      {departments?.map(({ name, slug, products }) => (
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'cenrter',
-            flexDirection: 'column',
-            gap: '16px',
-          }}
-          key={slug}
-        >
-          <SectionHeader>
-            <Heading.subtitle>{name}</Heading.subtitle>
-            <Link href={`/${slug}`} passHref>
-              <Heading.paragraph as="a">ver mais {name}</Heading.paragraph>
-            </Link>
-          </SectionHeader>
+      {departments
+        ?.filter(({ products }) => products.length > 0)
+        ?.map(({ name, slug, products }) => (
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'flex-start',
+              flexDirection: 'column',
+              gap: '16px',
+            }}
+            key={slug}
+          >
+            <SectionHeader>
+              <Heading.subtitle>{name}</Heading.subtitle>
+              <Link href={`/${slug}`} passHref>
+                <Heading.paragraph as="a">ver mais {name}</Heading.paragraph>
+              </Link>
+            </SectionHeader>
 
-          <ul>
-            {products.map((props) => (
-              <li style={{ width: '218px' }} key={props.id}>
-                <Product {...props} />
-              </li>
-            ))}
+            <ul
+              style={{
+                display: 'flex',
+                gap: '24px',
+                alignItems: 'stretch',
+              }}
+            >
+              {products.map((props) => (
+                <li style={{ width: '218px' }} key={props.id}>
+                  <Product
+                    css={{ height: '100%', main: { flex: 1, width: '100%' } }}
+                    {...props}
+                  />
+                </li>
+              ))}
 
-            {departmentsCount && departmentsCount > 3 && (
-              <EmptyDepartment departmentsCount={departmentsCount} />
-            )}
-          </ul>
-        </div>
-      ))}
+              {departmentsCount && departmentsCount > 3 && (
+                <EmptyDepartment departmentsCount={departmentsCount} />
+              )}
+            </ul>
+          </div>
+        ))}
 
       <Swiper
         slidesPerView="auto"

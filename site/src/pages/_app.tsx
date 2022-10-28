@@ -12,6 +12,7 @@ import { Footer } from '@/components/footer'
 import { categories } from '@/lib/config'
 
 import '@/styles/carousel.css'
+import '@/styles/font-size.css'
 import { NextComponentType } from 'next'
 
 import 'swiper/css'

@@ -5,7 +5,7 @@ export const globalStyles = globalCss({
     margin: 0,
     padding: 0,
     boxSizing: 'border-box',
-    fontFamily: '$darkerGrotesque',
+    fontFamily: 'sans-serif',
   },
   button: {
     cursor: 'pointer',
@@ -30,7 +30,7 @@ export const globalStyles = globalCss({
     fontFamily: '$darkerGrotesque',
     fontSize: '$fontSize100',
   },
-  '.mobile-menu-overlay': {
+  '.mobile-menu-overlay, .modal-overlay': {
     '&:after': {
       content: '',
 
@@ -45,6 +45,12 @@ export const globalStyles = globalCss({
 
       background: 'rgba(0, 0, 0, 0.50)',
       zIndex: 10,
+    },
+  },
+
+  '.modal-overlay': {
+    '&:after': {
+      background: 'rgba(0, 0, 0, 0.70)',
     },
   },
 })
@@ -102,7 +108,7 @@ export const { styled, createTheme, theme, keyframes, getCssText } =
         dangerDarkest: 'hsl(360, 60%, 10%)',
         dangerDarker: 'hsl(360, 60%, 20%)',
         dangerNormal: 'hsl(360, 60%, 55%)',
-        dangerLighter: 'hsl(360, 60%, 90%)',
+        dangerLighter: 'hsl(360, 60%, 64%)', // this color is WAY too bright
 
         warningDarkest: 'hsl(55, 60%, 10%)',
         warningDarker: 'hsl(55, 60%, 20%)',

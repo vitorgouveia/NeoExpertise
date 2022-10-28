@@ -9,6 +9,7 @@ import Link from 'next/link'
 import Router from 'next/router'
 import Flag from 'react-country-flag'
 
+import { languages } from '@/lib/languages'
 import type { CSS } from '@stitches/react'
 import * as Icons from 'phosphor-react'
 import { CaretDownIcon } from '@radix-ui/react-icons'
@@ -47,6 +48,7 @@ import { Heading } from '@/components/heading'
 import { Button } from '@/components/button'
 
 import { useOnClickOutside } from './use-on-click-outside'
+import { useSession } from 'next-auth/react'
 
 type HeaderProps = {
   categories: Array<{
@@ -379,21 +381,6 @@ const RightSlot = styled('div', {
   '[data-disabled] &': { color: '$grayDarker' },
 })
 
-const languages = [
-  {
-    name: 'PT-BR',
-    countryCode: 'BR',
-  },
-  {
-    name: 'EN-US',
-    countryCode: 'US',
-  },
-  {
-    name: 'UK',
-    countryCode: 'RU',
-  },
-]
-
 const MobileMenuRoot = styled('div', {
   display: 'flex',
   flexDirection: 'column',
@@ -437,14 +424,16 @@ const MobileMenuNavigation = styled('ul', {
   flexDirection: 'column',
   backgroundColor: '$grayDarkest',
   padding: '$sizes$300',
-  gap: '$sizes$300',
+  gap: '$sizes$200',
 })
 
 const MobileMenuItem = styled(Icon, {
   width: '100%',
-  height: 'auto',
+  height: '46px',
   justifyContent: 'flex-start',
-  gap: '$sizes$50',
+  gap: '$sizes$100',
+  padding: '$sizes$100',
+  alignItems: 'center',
 
   'svg, svg *': {
     color: 'inherit',
@@ -518,8 +507,10 @@ const mobileMenuItems = [
 ]
 
 export const Header: FunctionComponent<HeaderProps> = ({ categories }) => {
+  const { data } = useSession()
+
   const { setTheme, themes, theme, themeClass } = useContext(ThemeContext)
-  const [language, setLanguage] = useState('UK')
+  const [language, setLanguage] = useState('PT-BR')
   const [isLanguageModalOpen, setIsLanguageModalOpen] = useState(false)
   const [isMobileModalOpen, setIsMobileModalOpen] = useState(false)
   const [isAuthDropdownMenuOpen, setIsAuthDropdownMenuOpen] = useState(false)
@@ -631,20 +622,23 @@ export const Header: FunctionComponent<HeaderProps> = ({ categories }) => {
                     <ItemIcon
                       style={{
                         flexShrink: 0,
-                        width: '16px !important',
-                        height: '16px !important',
+                        width: '20px !important',
+                        height: '20px !important',
                       }}
-                      size={16}
+                      size={24}
                     />
                   )}
-                  <Heading.subtitle3 css={{ fontSize: '$paragraph' }}>
+
+                  <Heading.subtitle3 css={{ fontSize: '$small' }}>
                     {name}
                   </Heading.subtitle3>
                 </MobileMenuItem>
               </Link>
             </li>
           ))}
+
           <DropdownStyledSeparator />
+
           <li>
             <MobileMenuItem
               as="label"
@@ -655,18 +649,27 @@ export const Header: FunctionComponent<HeaderProps> = ({ categories }) => {
                 <Icons.MoonStars
                   style={{
                     flexShrink: 0,
-                    width: '16px !important',
-                    height: '16px !important',
+                    width: '20px !important',
+                    height: '20px !important',
                   }}
-                  size={16}
+                  size={24}
                 />
-                <Heading.subtitle3 css={{ fontSize: '$paragraph' }}>
+
+                <Heading.subtitle3 css={{ fontSize: '$small' }}>
                   Modo Escuro
                 </Heading.subtitle3>
               </Section>
+
               <Switch
                 id="toggle-theme-switcher"
-                defaultChecked={
+                onCheckedChange={() =>
+                  setTheme(
+                    themeClass === themes.waterLightning.className
+                      ? themes.evoAvenger
+                      : themes.waterLightning
+                  )
+                }
+                checked={
                   themeClass === themes.waterLightning.className ? false : true
                 }
               >
@@ -683,21 +686,24 @@ export const Header: FunctionComponent<HeaderProps> = ({ categories }) => {
                 <Icons.Globe
                   style={{
                     flexShrink: 0,
-                    width: '16px !important',
-                    height: '16px !important',
+                    width: '20px !important',
+                    height: '20px !important',
                   }}
-                  size={16}
+                  size={24}
                 />
-                <Heading.subtitle3 css={{ fontSize: '$paragraph' }}>
+
+                <Heading.subtitle3 css={{ fontSize: '$small' }}>
                   Linguagem
                 </Heading.subtitle3>
               </Section>
+
               <Select
                 onValueChange={(value) => setLanguage(value)}
                 value={language}
               >
                 <SelectTrigger aria-label="Language">
                   <SelectValue placeholder="Select a language" />
+
                   <Flag
                     style={{ fontSize: DEFAULT_ICON_SIZE / 2 }}
                     countryCode={
@@ -705,10 +711,12 @@ export const Header: FunctionComponent<HeaderProps> = ({ categories }) => {
                         ?.countryCode!
                     }
                   />
+
                   <SelectIcon>
                     <Icons.CaretDown />
                   </SelectIcon>
                 </SelectTrigger>
+
                 <SelectContent css={{ zIndex: '40' }}>
                   <SelectScrollUpButton>
                     <Icons.CaretUp />
@@ -744,12 +752,14 @@ export const Header: FunctionComponent<HeaderProps> = ({ categories }) => {
               </Select>
             </MobileMenuItem>
           </li>
+
           <DropdownStyledSeparator />
+
           {categories.map(({ name, href }) => (
             <li key={href}>
               <Link href={href} passHref>
                 <MobileMenuItem>
-                  <Heading.subtitle3 css={{ fontSize: '$paragraph' }}>
+                  <Heading.subtitle3 css={{ fontSize: '$small' }}>
                     {name}
                   </Heading.subtitle3>
                 </MobileMenuItem>
@@ -791,32 +801,40 @@ export const Header: FunctionComponent<HeaderProps> = ({ categories }) => {
           <Icons.MagnifyingGlass size={DEFAULT_ICON_SIZE} />
         </SearchIcon>
 
-        <UserDropdownMenu
-          open={isAuthDropdownMenuOpen}
-          onOpenChange={(open) => setIsAuthDropdownMenuOpen(open)}
-        >
-          <DropdownMenuTrigger asChild>
-            <UserIcon tabIndex={0} as="button">
+        {data?.user ? (
+          <Link href="/perfil" passHref>
+            <UserIcon tabIndex={0} as="a">
               <Icons.User size={DEFAULT_ICON_SIZE} />
             </UserIcon>
-          </DropdownMenuTrigger>
+          </Link>
+        ) : (
+          <UserDropdownMenu
+            open={isAuthDropdownMenuOpen}
+            onOpenChange={(open) => setIsAuthDropdownMenuOpen(open)}
+          >
+            <DropdownMenuTrigger asChild>
+              <UserIcon tabIndex={0} as="button">
+                <Icons.User size={DEFAULT_ICON_SIZE} />
+              </UserIcon>
+            </DropdownMenuTrigger>
 
-          <DropdownMenuContent>
-            <DropdownMenuItem onSelect={() => Router.push('/register')}>
-              <Section css={{ width: 'max-content' }}>
-                <Icons.SignIn size={DEFAULT_ICON_SIZE} />
-                <strong>Entrar</strong>
-              </Section>
-            </DropdownMenuItem>
+            <DropdownMenuContent css={{ zIndex: '40' }}>
+              <DropdownMenuItem onSelect={() => Router.push('/login')}>
+                <Section css={{ width: 'max-content' }}>
+                  <Icons.SignIn size={DEFAULT_ICON_SIZE} />
+                  <strong>Entrar</strong>
+                </Section>
+              </DropdownMenuItem>
 
-            <DropdownMenuItem onSelect={() => Router.push('/register')}>
-              <Section css={{ width: 'max-content' }}>
-                <Icons.UserPlus size={DEFAULT_ICON_SIZE} />
-                <strong>Criar conta</strong>
-              </Section>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </UserDropdownMenu>
+              <DropdownMenuItem onSelect={() => Router.push('/cadastro')}>
+                <Section css={{ width: 'max-content' }}>
+                  <Icons.UserPlus size={DEFAULT_ICON_SIZE} />
+                  <strong>Criar conta</strong>
+                </Section>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </UserDropdownMenu>
+        )}
 
         <Icon
           css={{
@@ -867,7 +885,7 @@ export const Header: FunctionComponent<HeaderProps> = ({ categories }) => {
             </Icon>
           </DropdownMenuTrigger>
 
-          <DropdownMenuContent>
+          <DropdownMenuContent css={{ zIndex: 100 }}>
             {languages.map(({ name, countryCode }) =>
               language === name ? (
                 <DropdownMenuItem

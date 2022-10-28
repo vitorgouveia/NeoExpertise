@@ -32,10 +32,13 @@ model Product {
   departmentSlug String
   department     Department @relation(fields: [departmentSlug], references: [slug])
 
-  stripeId String @unique
+  stripeId String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  brandSlug String
+  brand     Brand  @relation(fields: [brandSlug], references: [slug])
 
   @@map("products")
 }
@@ -67,6 +70,8 @@ model Brand {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  products Product[]
 
   @@map("brands")
 }
@@ -161,10 +166,31 @@ model User {
   id            String    @id @default(cuid())
   name          String?
   email         String?   @unique
+  cpf           String?   @unique
+  password      String
   emailVerified DateTime?
   image         String?
+  coverImage    String?
   accounts      Account[]
   sessions      Session[]
+  hasNewsletter Boolean   @default(false)
+
+  createdAt DateTime @default(now())
+
+  addresses Address[]
+}
+
+model Address {
+  id String @id @default(uuid())
+
+  zipcode      String
+  street       String
+  neighborhood String
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  @@map("addresses")
 }
 
 model VerificationToken {
