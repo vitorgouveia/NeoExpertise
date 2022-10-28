@@ -449,6 +449,7 @@ const Checkout: NextPage<CheckoutProps> = ({
               css={{ width: '200px', height: '50px' }}
               variant="outlined"
               onClick={async () => {
+                // @ts-ignore
                 window.location = redirect_url!
               }}
             >
