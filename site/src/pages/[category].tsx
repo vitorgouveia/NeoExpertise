@@ -348,10 +348,7 @@ const Department: NextPage<{
           <ProductGrid>
             {sortedProducts.map((props, index) => (
               <li key={index}>
-                <Product
-                  {...props}
-                  images={['https://c.tenor.com/upDt8-E1NCgAAAAC/obunga.gif']}
-                />
+                <Product {...props} />
               </li>
             ))}
           </ProductGrid>

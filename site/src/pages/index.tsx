@@ -242,7 +242,7 @@ function MobileDepartmentPills() {
   }
 
   return (
-    <MobileDepartmentPillsRoot>
+    <MobileDepartmentPillsRoot css={{ overflow: 'auto' }}>
       {departments?.map(({ name, slug }) => (
         <li key={slug}>
           <Link href={`/${slug}`} passHref>
@@ -359,6 +359,7 @@ function Departments() {
               alignItems: 'flex-start',
               flexDirection: 'column',
               gap: '16px',
+              width: '100%',
             }}
             key={slug}
           >
@@ -374,6 +375,8 @@ function Departments() {
                 display: 'flex',
                 gap: '24px',
                 alignItems: 'stretch',
+                overflow: 'auto',
+                width: '100%',
               }}
             >
               {products.map((props) => (
@@ -501,7 +504,7 @@ function Brands() {
       </SectionHeader>
 
       <Swiper
-        slidesPerView="auto"
+        slidesPerView={10}
         freeMode={true}
         // slidesPerGroup={5}
         style={{
@@ -673,7 +676,7 @@ function BuildYourPC() {
     )
   }
 
-  return (
+  return computers!.length > 0 ? (
     <SectionRoot
       align="center"
       css={{
@@ -688,7 +691,7 @@ function BuildYourPC() {
             'linear-gradient(0deg, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url("https://images.kabum.com.br/produtos/fotos/309501/pc-gamer-skul-3000-intel-quad-core-i3-10100f-rgb-amd-radeon-rx-550-8gb-ddr4-ssd-240gb-linux-preto-g4704-120630_1644605124_original.jpg")',
           backgroundSize: 'cover',
           p: {
-            width: '300px',
+            // width: '300px',
             textAlign: 'left',
             color: '$grayLightest',
           },
@@ -745,7 +748,7 @@ function BuildYourPC() {
         </Button>
       </Link>
     </SectionRoot>
-  )
+  ) : null
 }
 
 export default Home
