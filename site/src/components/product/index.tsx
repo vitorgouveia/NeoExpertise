@@ -7,13 +7,14 @@ import { Button } from '@/components/button'
 import { Heading } from '@/components/heading'
 import { convertRatingToPercentage } from '../carousel/index.client'
 import { CSS } from '@stitches/react'
+import Link from 'next/link'
 
 const currency = new Intl.NumberFormat('pt-BR', {
   style: 'currency',
   currency: 'BRL',
 })
 
-type ProductProps = {
+export type ProductProps = {
   id: string
 
   name: string
@@ -108,13 +109,13 @@ const ProductActions = styled('footer', {
 })
 
 export const Product: FunctionComponent<ProductProps> = ({
-  id,
   name,
   price,
   images,
   rating,
   sold,
   css,
+  slug,
 }) => {
   return (
     <ProductRoot css={css}>
@@ -150,12 +151,17 @@ export const Product: FunctionComponent<ProductProps> = ({
         <Heading.paragraph>à vista</Heading.paragraph>
 
         <ProductActions>
-          <Button
-            variant="outlined"
-            css={{ borderColor: '$primaryNormal', flex: 1 }}
-          >
-            <Heading.paragraph>Comprar</Heading.paragraph>
-          </Button>
+          <Link href={`/produto/${slug}`} passHref>
+            <Button
+              as="a"
+              variant="outlined"
+              css={{ borderColor: '$primaryNormal', flex: 1 }}
+            >
+              <Heading.paragraph css={{ color: '$grayLightest !important' }}>
+                Comprar
+              </Heading.paragraph>
+            </Button>
+          </Link>
 
           <Button variant="outlined" className="cart">
             <ShoppingCart size={24} />

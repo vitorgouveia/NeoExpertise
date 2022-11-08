@@ -1,7 +1,6 @@
 import { GetServerSideProps, NextPage } from 'next'
 import { useMemo, useState } from 'react'
 import Stripe from 'stripe'
-import { loadStripe } from '@stripe/stripe-js'
 
 import { unstable_getServerSession } from 'next-auth'
 import * as Icons from 'phosphor-react'
@@ -16,6 +15,7 @@ import * as Select from '@/components/input/select'
 
 import { authOptions } from './api/auth/[...nextauth]'
 import Link from 'next/link'
+import Router from 'next/router'
 
 const Container = styled('main', {
   display: 'flex',
@@ -60,8 +60,6 @@ function formataCPF(cpf: string) {
 }
 
 type CheckoutProps = {
-  redirect_url: string
-  // skus: Stripe.Sku[]
   cpf: string
   cart: (Omit<Product, 'createdAt' | 'updatedAt'> & {
     brand: {
@@ -94,21 +92,12 @@ const payment_options = [
     name: 'Crédito',
   },
   {
-    id: '1',
-    name: 'Boleto',
-  },
-  {
     id: '2',
     name: 'Pix',
   },
 ]
 
-const Checkout: NextPage<CheckoutProps> = ({
-  redirect_url,
-  cpf,
-  cart,
-  addresses,
-}) => {
+const Checkout: NextPage<CheckoutProps> = ({ cpf, cart, addresses }) => {
   const [selected_shipping, setSelectedShipping] = useState(shipping_data[0].id) // value used to approximate the delivery date
   const [selected_payment, setSelectedPayment] = useState(payment_options[0].id)
 
@@ -139,11 +128,10 @@ const Checkout: NextPage<CheckoutProps> = ({
         </SectionRoot>
       ) : (
         <>
-          <SectionRoot>
-            <SectionHeader>
-              <MapPin size={44} />
-
-              {addresses && addresses[0] && (
+          {(addresses?.length || []) >= 1 ? (
+            <SectionRoot>
+              <SectionHeader>
+                <MapPin size={44} />
                 <Div
                   css={{
                     display: 'flex',
@@ -154,9 +142,9 @@ const Checkout: NextPage<CheckoutProps> = ({
                   <Heading.subtitle2>Endereço De Entrega</Heading.subtitle2>
                   <Heading.paragraph>{addresses[0].street}</Heading.paragraph>
                 </Div>
-              )}
-            </SectionHeader>
-          </SectionRoot>
+              </SectionHeader>
+            </SectionRoot>
+          ) : null}
 
           <SectionRoot>
             {cart &&
@@ -449,8 +437,54 @@ const Checkout: NextPage<CheckoutProps> = ({
               css={{ width: '200px', height: '50px' }}
               variant="outlined"
               onClick={async () => {
-                // @ts-ignore
-                window.location = redirect_url!
+                let line_items = cart.map(({ images, name, price }) => ({
+                  price_data: {
+                    currency: 'brl',
+                    product_data: {
+                      name,
+                      images,
+                    },
+                    unit_amount: price * 100,
+                  },
+                  quantity: 1,
+                }))
+
+                const shippingPrice =
+                  shipping_data.find(({ id }) => selected_shipping == id)
+                    ?.pricing || shipping_data[0].pricing
+
+                line_items.push({
+                  price_data: {
+                    currency: 'brl',
+                    product_data: {
+                      name: 'frete',
+                      images: [],
+                    },
+                    unit_amount: shippingPrice * 100,
+                  },
+                  quantity: 1,
+                })
+
+                try {
+                  const response = await fetch('/api/create-checkout', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                      line_items: JSON.stringify(line_items),
+                      success_url: `${window.location.origin}/success`,
+                      cancel_url: window.location.href,
+                    }),
+                  })
+
+                  const data = await response.json()
+
+                  window.location = data.url
+                } catch (error) {
+                  alert('Alguma coisa deu errado!')
+                  console.log('error')
+                }
               }}
             >
               <Heading.paragraph>Fazer Pedido</Heading.paragraph>
@@ -507,7 +541,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
   }
 
-  const products = await prisma.product.findMany({
+  const { productId } = context.query
+
+  const product = await prisma.product.findFirst({
+    where: {
+      id: String(productId),
+    },
     include: {
       brand: {
         select: {
@@ -517,40 +556,25 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     },
   })
 
-  const stripeAPI = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-    apiVersion: '2022-08-01',
-  })
-
-  const stripeSession = await stripeAPI.checkout.sessions.create({
-    payment_method_types: ['card'],
-    mode: 'payment',
-    line_items: [
-      {
-        price_data: {
-          currency: 'brl',
-          product_data: {
-            name: products[0].name,
-            images: products[0].images,
-          },
-          unit_amount: products[0].price * 100,
-        },
-        quantity: 1,
+  if (!product) {
+    return {
+      props: {},
+      redirect: {
+        destination: '/',
+        permanent: false,
       },
-    ],
-    success_url: context.req.cookies['next-auth.callback-url']?.replace(
-      'perfil',
-      'sucess'
-    )!,
-    cancel_url: context.req.cookies['next-auth.callback-url']?.replace(
-      'perfil',
-      'cancel'
-    )!,
-  })
+    }
+  }
 
   return {
     props: {
-      redirect_url: stripeSession.url,
-      cart: products.map(({ createdAt, updatedAt, ...rest }) => rest),
+      cart: [
+        {
+          ...product,
+          createdAt: String(product.createdAt),
+          updatedAt: String(product.updatedAt),
+        },
+      ],
       cpf: '53094769896',
       addresses: user.addresses,
       // cpf: user.cpf,
