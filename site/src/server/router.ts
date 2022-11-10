@@ -368,10 +368,10 @@ export const router = trpc
       })
 
       const formattedProducts = products.map(
-        ({ id, name, description, images }) => ({
+        ({ id, name, slug, description, images }) => ({
           id,
           name,
-          slug: slugify(name),
+          slug,
           description: description ?? '',
           rating: 4,
           coverUrl: images[0],

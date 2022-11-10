@@ -16,6 +16,8 @@ import { useSwiperRef } from './use-swiper'
 import { Button } from '@/components/button'
 import { Heading } from '@/components/heading'
 import { Rating } from 'react-simple-star-rating'
+import Link from 'next/link'
+import { useSession } from 'next-auth/react'
 
 // basically, the 'rating' prop is the number of stars
 // prop i need to provide to the <Rating /> component is in percentage
@@ -312,6 +314,8 @@ const ProductButtonWrapper = styled('footer', {
 })
 
 const Carousel: FunctionComponent = () => {
+  const { status, data: userdata } = useSession()
+
   const { data: homepageSlides, isLoading } = trpc.useQuery([
     'get-homepage-slides',
   ])
@@ -408,19 +412,61 @@ const Carousel: FunctionComponent = () => {
                   />
 
                   <ProductButtonWrapper>
-                    <Button
-                      className="buy-now"
-                      variant="outlined"
-                      tabIndex={-1}
-                    >
-                      <Heading.paragraph>Comprar Agora</Heading.paragraph>
-                    </Button>
+                    <Link href={`/produto/${slug}`} passHref>
+                      <Button
+                        as="a"
+                        className="buy-now"
+                        variant="outlined"
+                        tabIndex={-1}
+                      >
+                        <Heading.paragraph>Comprar Agora</Heading.paragraph>
+                      </Button>
+                    </Link>
 
                     <Button
                       className="cart"
                       variant="outlined"
                       css={{ background: 'transparent' }}
                       tabIndex={-1}
+                      disabled={status !== 'authenticated' ? true : false}
+                      onClick={async () => {
+                        if (status !== 'authenticated') {
+                          return
+                        }
+
+                        const body = JSON.stringify({
+                          email: userdata.user?.email,
+                          productId: id,
+                        })
+
+                        try {
+                          const response = await fetch(
+                            '/api/add-item-to-cart',
+                            {
+                              method: 'POST',
+                              headers: {
+                                'Content-Type': 'application/json',
+                                Accept: 'application/json',
+                              },
+                              body,
+                            }
+                          )
+                          const data = await response.json()
+                          if (data.ok == true) {
+                            alert('Product adicionado ao carrinho')
+                            // ok
+                            return
+                          } else if (data.message) {
+                            alert(data.message)
+                            return
+                          }
+
+                          alert('Something went wrong2')
+                        } catch (error) {
+                          console.log(error)
+                          alert('Something went wrong')
+                        }
+                      }}
                     >
                       <ShoppingCart size={24} />
                     </Button>

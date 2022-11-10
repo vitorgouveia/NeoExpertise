@@ -40,6 +40,9 @@ model Product {
   brandSlug String
   brand     Brand  @relation(fields: [brandSlug], references: [slug])
 
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id])
+
   @@map("products")
 }
 
@@ -175,7 +178,8 @@ model User {
   sessions      Session[]
   hasNewsletter Boolean   @default(false)
 
-  createdAt DateTime @default(now())
+  createdAt DateTime  @default(now())
+  cart      Product[]
 
   addresses Address[]
 }

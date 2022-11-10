@@ -1,6 +1,6 @@
 import { GetServerSideProps, NextPage } from 'next'
 import { useMemo, useState } from 'react'
-import Stripe from 'stripe'
+import { TrashSimple } from 'phosphor-react'
 
 import { unstable_getServerSession } from 'next-auth'
 import * as Icons from 'phosphor-react'
@@ -16,6 +16,7 @@ import * as Select from '@/components/input/select'
 import { authOptions } from './api/auth/[...nextauth]'
 import Link from 'next/link'
 import Router from 'next/router'
+import { useSession } from 'next-auth/react'
 
 const Container = styled('main', {
   display: 'flex',
@@ -97,9 +98,15 @@ const payment_options = [
   },
 ]
 
-const Checkout: NextPage<CheckoutProps> = ({ cpf, cart, addresses }) => {
+const Checkout: NextPage<CheckoutProps> = ({
+  cpf,
+  cart: initialCart,
+  addresses,
+}) => {
   const [selected_shipping, setSelectedShipping] = useState(shipping_data[0].id) // value used to approximate the delivery date
   const [selected_payment, setSelectedPayment] = useState(payment_options[0].id)
+  const [cart, setCart] = useState(initialCart)
+  const { data } = useSession()
 
   const total = useMemo(() => {
     if (!cart) {
@@ -148,49 +155,115 @@ const Checkout: NextPage<CheckoutProps> = ({ cpf, cart, addresses }) => {
 
           <SectionRoot>
             {cart &&
-              cart.map(({ id, name, description, brand, images, price }) => (
-                <SectionRoot as="div" key={id}>
-                  <SectionHeader>
-                    <Storefront size={44} />
+              cart.map(
+                ({ id, name, description, brand, slug, images, price }) => (
+                  <SectionRoot as="div" key={id}>
+                    <SectionHeader>
+                      <Storefront size={44} />
 
-                    <Heading.subtitle2>{brand.name}</Heading.subtitle2>
-                  </SectionHeader>
+                      <Heading.subtitle2>{brand.name}</Heading.subtitle2>
+                    </SectionHeader>
 
-                  <Div
-                    key={id}
-                    css={{
-                      display: 'flex',
-                      alignItems: 'flex-start',
-                      gap: '$sizes$200',
-                    }}
-                  >
-                    <img
-                      style={{ objectFit: 'cover' }}
-                      src={images[0]}
-                      alt=""
-                      width={'100px'}
-                      height={'100px'}
-                    />
-                    {/* <Image size={80} alt="" /> */}
+                    <Div
+                      key={id}
+                      css={{
+                        display: 'flex',
+                        alignItems: 'flex-start',
+                        gap: '$sizes$200',
+                      }}
+                    >
+                      <img
+                        style={{ objectFit: 'cover' }}
+                        src={images[0]}
+                        alt=""
+                        width={'100px'}
+                        height={'100px'}
+                      />
+                      {/* <Image size={80} alt="" /> */}
 
-                    <Div css={{ display: 'flex', flexDirection: 'column' }}>
-                      <Heading.subtitle3 css={{ textTransform: 'capitalize' }}>
-                        {name}
-                      </Heading.subtitle3>
-                      <Heading.paragraph css={{ color: '$grayLighter' }}>
-                        {description}
-                      </Heading.paragraph>
+                      <Link passHref href={`/produto/${slug}`}>
+                        <Div
+                          as="a"
+                          css={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            maxWidth: '700px',
+                          }}
+                        >
+                          <Heading.subtitle3
+                            css={{ textTransform: 'capitalize' }}
+                          >
+                            {name}
+                          </Heading.subtitle3>
+                          <Heading.paragraph css={{ color: '$grayLighter' }}>
+                            {description.substring(0, 120)}...
+                          </Heading.paragraph>
 
-                      <Heading.subtitle3 css={{ color: '$successNormal' }}>
-                        {new Intl.NumberFormat('pt-BR', {
-                          style: 'currency',
-                          currency: 'BRL',
-                        }).format(price)}
-                      </Heading.subtitle3>
+                          <Heading.subtitle3 css={{ color: '$successNormal' }}>
+                            {new Intl.NumberFormat('pt-BR', {
+                              style: 'currency',
+                              currency: 'BRL',
+                            }).format(price)}
+                          </Heading.subtitle3>
+                        </Div>
+                      </Link>
+
+                      <Button
+                        variant="link"
+                        onClick={async () => {
+                          const body = JSON.stringify({
+                            email: data?.user?.email,
+                            productId: id,
+                          })
+
+                          const currentProductIndex = cart.findIndex(
+                            (product) => product.id === id
+                          )
+                          const product = cart.slice(currentProductIndex)
+
+                          setCart((cart) =>
+                            cart.filter((product) => product.id !== id)
+                          )
+
+                          try {
+                            const response = await fetch(
+                              '/api/remove-item-from-cart',
+                              {
+                                method: 'POST',
+                                headers: {
+                                  'Content-Type': 'application/json',
+                                  Accept: 'application/json',
+                                },
+                                body,
+                              }
+                            )
+                            const data = await response.json()
+                            if (data.ok == true) {
+                              // alert('Product remove do carrinho!')
+                              // ok
+                              return
+                            } else if (data.message) {
+                              alert(data.message)
+                              return
+                            }
+
+                            alert('Something went wrong2')
+                          } catch (error) {
+                            console.log(error)
+                            setCart((cart) =>
+                              // @ts-ignore
+                              cart.splice(currentProductIndex, 0, product)
+                            )
+                            alert('Something went wrong')
+                          }
+                        }}
+                      >
+                        <TrashSimple size={24} color="red" />
+                      </Button>
                     </Div>
-                  </Div>
-                </SectionRoot>
-              ))}
+                  </SectionRoot>
+                )
+              )}
           </SectionRoot>
 
           <SectionRoot>
@@ -437,6 +510,7 @@ const Checkout: NextPage<CheckoutProps> = ({ cpf, cart, addresses }) => {
               css={{ width: '200px', height: '50px' }}
               variant="outlined"
               onClick={async () => {
+                console.log(cart)
                 let line_items = cart.map(({ images, name, price }) => ({
                   price_data: {
                     currency: 'brl',
@@ -444,7 +518,7 @@ const Checkout: NextPage<CheckoutProps> = ({ cpf, cart, addresses }) => {
                       name,
                       images,
                     },
-                    unit_amount: price * 100,
+                    unit_amount: Number((price * 100).toFixed(0)),
                   },
                   quantity: 1,
                 }))
@@ -482,8 +556,8 @@ const Checkout: NextPage<CheckoutProps> = ({ cpf, cart, addresses }) => {
 
                   window.location = data.url
                 } catch (error) {
-                  alert('Alguma coisa deu errado!')
                   console.log('error')
+                  alert('Alguma coisa deu errado!')
                 }
               }}
             >
@@ -522,6 +596,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       email: session.user?.email,
     },
     include: {
+      cart: {
+        include: {
+          brand: {
+            select: {
+              name: true,
+            },
+          },
+        },
+      },
       addresses: {
         select: {
           street: true,
@@ -541,40 +624,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
   }
 
-  const { productId } = context.query
-
-  const product = await prisma.product.findFirst({
-    where: {
-      id: String(productId),
-    },
-    include: {
-      brand: {
-        select: {
-          name: true,
-        },
-      },
-    },
-  })
-
-  if (!product) {
-    return {
-      props: {},
-      redirect: {
-        destination: '/',
-        permanent: false,
-      },
-    }
-  }
-
   return {
     props: {
-      cart: [
-        {
-          ...product,
-          createdAt: String(product.createdAt),
-          updatedAt: String(product.updatedAt),
-        },
-      ],
+      cart: user.cart.map((product) => ({
+        ...product,
+        createdAt: String(product.createdAt),
+        updatedAt: String(product.updatedAt),
+      })),
       cpf: '53094769896',
       addresses: user.addresses,
       // cpf: user.cpf,

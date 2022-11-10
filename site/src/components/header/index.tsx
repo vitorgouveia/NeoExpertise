@@ -804,7 +804,14 @@ export const Header: FunctionComponent<HeaderProps> = ({ categories }) => {
         {data?.user ? (
           <Link href="/perfil" passHref>
             <UserIcon tabIndex={0} as="a">
-              <Icons.User size={DEFAULT_ICON_SIZE} />
+              <img
+                style={{ borderRadius: '50%' }}
+                src={`https://avatars.dicebear.com/api/initials/${data?.user?.name}.svg`}
+                alt=""
+                width={DEFAULT_ICON_SIZE}
+                height={DEFAULT_ICON_SIZE}
+              />
+              {/* <Icons.User size={DEFAULT_ICON_SIZE} /> */}
             </UserIcon>
           </Link>
         ) : (

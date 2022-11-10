@@ -8,6 +8,7 @@ import { Heading } from '@/components/heading'
 import { convertRatingToPercentage } from '../carousel/index.client'
 import { CSS } from '@stitches/react'
 import Link from 'next/link'
+import { useSession } from 'next-auth/react'
 
 const currency = new Intl.NumberFormat('pt-BR', {
   style: 'currency',
@@ -116,7 +117,10 @@ export const Product: FunctionComponent<ProductProps> = ({
   sold,
   css,
   slug,
+  id,
 }) => {
+  const { status, data: userdata } = useSession()
+
   return (
     <ProductRoot css={css}>
       <img src={images[0]} alt={`Product's ${name} picture`} />
@@ -163,7 +167,46 @@ export const Product: FunctionComponent<ProductProps> = ({
             </Button>
           </Link>
 
-          <Button variant="outlined" className="cart">
+          <Button
+            variant="outlined"
+            className="cart"
+            disabled={status !== 'authenticated' ? true : false}
+            onClick={async () => {
+              if (status !== 'authenticated') {
+                return
+              }
+
+              const body = JSON.stringify({
+                email: userdata.user?.email,
+                productId: id,
+              })
+
+              try {
+                const response = await fetch('/api/add-item-to-cart', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                  },
+                  body,
+                })
+                const data = await response.json()
+                if (data.ok == true) {
+                  alert('Product adicionado ao carrinho')
+                  // ok
+                  return
+                } else if (data.message) {
+                  alert(data.message)
+                  return
+                }
+
+                alert('Something went wrong2')
+              } catch (error) {
+                console.log(error)
+                alert('Something went wrong')
+              }
+            }}
+          >
             <ShoppingCart size={24} />
           </Button>
         </ProductActions>
