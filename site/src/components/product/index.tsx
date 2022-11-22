@@ -119,6 +119,7 @@ export const Product: FunctionComponent<ProductProps> = ({
   slug,
   id,
 }) => {
+  const formattedTitle = name.substring(0, 35)
   const { status, data: userdata } = useSession()
 
   return (
@@ -126,9 +127,14 @@ export const Product: FunctionComponent<ProductProps> = ({
       <img src={images[0]} alt={`Product's ${name} picture`} />
 
       <ProductContent>
-        <Heading.paragraph css={{ strong: { color: '$grayLightest' } }}>
-          <strong>{name.substring(0, 60)}</strong>
-        </Heading.paragraph>
+        <Link href={`/produto/${slug}`} passHref>
+          <Heading.paragraph
+            as="a"
+            css={{ strong: { color: '$grayLightest' } }}
+          >
+            <strong>{formattedTitle}</strong>
+          </Heading.paragraph>
+        </Link>
 
         <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
           <Rating
@@ -150,7 +156,9 @@ export const Product: FunctionComponent<ProductProps> = ({
           por
         </Heading.paragraph>
 
-        <Heading.subtitle3>{currency.format(price)}</Heading.subtitle3>
+        <Heading.subtitle3 css={{ fontSize: '$h6 !important' }}>
+          {currency.format(price)}
+        </Heading.subtitle3>
 
         <Heading.paragraph>à vista</Heading.paragraph>
 

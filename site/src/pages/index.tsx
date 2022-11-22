@@ -1,4 +1,4 @@
-import { FunctionComponent, Suspense } from 'react'
+import { FunctionComponent, Suspense, useEffect, useState } from 'react'
 import { CSS } from '@stitches/react'
 import type { NextPageWithLayout } from '@/@types/next'
 import Link from 'next/link'
@@ -105,7 +105,7 @@ const Home: NextPageWithLayout = () => {
 
   return (
     <>
-      <Suspense fallback={<h1>loading....</h1>}>
+      <Suspense fallback={null}>
         <Carousel />
       </Suspense>
 
@@ -155,11 +155,7 @@ function DailyOffers() {
   const { data: offers, isLoading } = trpc.useQuery(['most-famous-products'])
 
   if (isLoading) {
-    return (
-      <div>
-        <h1>im loading offers</h1>
-      </div>
-    )
+    return null
   }
 
   return (
@@ -194,8 +190,24 @@ function DailyOffers() {
         modules={[FreeMode, Navigation, Pagination, Autoplay]}
       >
         {offers?.map((props) => (
-          <SwiperSlide style={{ width: '218px !important' }} key={props.id}>
-            <Product {...props} />
+          <SwiperSlide
+            style={{ width: '218px !important', height: '550px' }}
+            key={props.id}
+          >
+            <Product
+              {...props}
+              css={{
+                height: '100%',
+                img: {
+                  width: '218px !important',
+                  height: '218px !important',
+                  aspectRatio: '1/1',
+                },
+                main: {
+                  height: '100%',
+                },
+              }}
+            />
           </SwiperSlide>
         ))}
       </Swiper>
@@ -215,7 +227,7 @@ const MobileDepartmentPillsRoot = styled('ul', {
 })
 
 const DepartmentPill = styled('a', {
-  background: '$grayDarker',
+  background: '$grayNormal',
   padding: '$sizes$100 $sizes$200',
   borderRadius: '9999px',
 
@@ -234,17 +246,13 @@ function MobileDepartmentPills() {
   ])
 
   if (isLoading) {
-    return (
-      <div>
-        <h1>loading departments pills</h1>
-      </div>
-    )
+    return null
   }
 
   return (
     <MobileDepartmentPillsRoot css={{ overflow: 'auto' }}>
       {departments?.map(({ name, slug }) => (
-        <li key={slug}>
+        <li style={{ flexShrink: 0 }} key={slug}>
           <Link href={`/${slug}`} passHref>
             <DepartmentPill>{name}</DepartmentPill>
           </Link>
@@ -306,11 +314,7 @@ const EmptyDepartment: FunctionComponent<{
   ])
 
   if (isLoading || !departments) {
-    return (
-      <div>
-        <h1>skeleton</h1>
-      </div>
-    )
+    return null
   }
 
   return null
@@ -327,11 +331,7 @@ function Departments() {
   ])
 
   if (isLoading) {
-    return (
-      <div>
-        <h1>skeleton loading...</h1>
-      </div>
-    )
+    return null
   }
 
   return (
@@ -364,7 +364,7 @@ function Departments() {
             key={slug}
           >
             <SectionHeader>
-              <Heading.subtitle>{name}</Heading.subtitle>
+              <Heading.subtitle2>{name}</Heading.subtitle2>
               <Link href={`/${slug}`} passHref>
                 <Heading.paragraph as="a">ver mais {name}</Heading.paragraph>
               </Link>
@@ -396,7 +396,7 @@ function Departments() {
         ))}
 
       <Swiper
-        slidesPerView="auto"
+        slidesPerView={5}
         freeMode={true}
         // slidesPerGroup={5}
         style={{
@@ -427,7 +427,9 @@ function Departments() {
           >
             <Link href={`/${slug}`} passHref>
               <DepartmentCard>
-                <Heading.subtitle2>{name}</Heading.subtitle2>
+                <Heading.subtitle2 css={{ color: '#fff' }}>
+                  {name}
+                </Heading.subtitle2>
                 <img src={imgUrl} alt={`Department's ${name} image`} />
               </DepartmentCard>
             </Link>
@@ -480,15 +482,16 @@ const BrandTile = styled('li', {
 function Brands() {
   const [nextEl, nextElRef] = useSwiperRef<HTMLButtonElement>()
   const [prevEl, prevElRef] = useSwiperRef<HTMLButtonElement>()
+  const [initialRender, setInitialRender] = useState(true)
 
   const { data: brands, isLoading } = trpc.useQuery(['brands'])
 
-  if (isLoading) {
-    return (
-      <div>
-        <h1>should be skeleton loading</h1>
-      </div>
-    )
+  useEffect(() => {
+    setInitialRender(false)
+  }, [])
+
+  if (isLoading || initialRender) {
+    return null
   }
 
   return (
@@ -504,7 +507,17 @@ function Brands() {
       </SectionHeader>
 
       <Swiper
-        slidesPerView={10}
+        breakpoints={{
+          0: {
+            slidesPerView: 2,
+          },
+          640: {
+            slidesPerView: 3,
+          },
+          1024: {
+            slidesPerView: 7,
+          },
+        }}
         freeMode={true}
         // slidesPerGroup={5}
         style={{
@@ -525,7 +538,7 @@ function Brands() {
           <SwiperSlide
             style={{
               width: '130px !important',
-              flexShrink: 0,
+              flexShrink: '0',
               height: '70px !important',
               background: backgroundColor,
               display: 'grid',
@@ -669,11 +682,7 @@ function BuildYourPC() {
   ])
 
   if (isLoading) {
-    return (
-      <div>
-        <h1>this should be skeleton loading</h1>
-      </div>
-    )
+    return null
   }
 
   return computers!.length > 0 ? (

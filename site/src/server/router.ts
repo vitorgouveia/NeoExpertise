@@ -234,23 +234,37 @@ export const router = trpc
     async resolve({ ctx }) {
       return [
         {
-          name: 'Tópico 1',
+          name: 'Contato',
           pages: [
             {
-              name: 'Pagina 1',
-              href: '/page1',
+              name: 'Quem Somos',
+              href: '/quem-somos',
+            },
+          ],
+        },
+        {
+          name: 'Contribuidores',
+          pages: [
+            {
+              name: 'Vitor Gouveia',
+              href: '/equipe/vitor-gouveia',
+            },
+          ],
+        },
+        {
+          name: 'Links Úteis',
+          pages: [
+            {
+              name: 'Esqueci a Senha',
+              href: '/esqueci-a-senha',
             },
             {
-              name: 'Pagina 2',
-              href: '/page2',
+              name: 'Perfil',
+              href: '/perfil',
             },
             {
-              name: 'Pagina 3',
-              href: '/page3',
-            },
-            {
-              name: 'Pagina 4',
-              href: '/page4',
+              name: 'Catálogo',
+              href: '/catalogo',
             },
           ],
         },

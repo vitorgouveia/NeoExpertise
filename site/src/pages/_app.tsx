@@ -1,4 +1,5 @@
 import type { AppPropsWithLayout } from '@/@types/next'
+import Head from 'next/head'
 
 import { globalStyles } from '@/stitches.config'
 import { ThemeProvider } from '@/components/theme-context'
@@ -28,6 +29,9 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
   return getLayout(
     <ThemeProvider>
       <SessionProvider session={pageProps.session}>
+        <Head>
+          <title>NeoExpertise</title>
+        </Head>
         <Header categories={categories} />
 
         <Component {...pageProps} />

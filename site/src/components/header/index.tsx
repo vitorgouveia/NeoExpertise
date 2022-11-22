@@ -148,8 +148,12 @@ const Section = styled('section', {
 
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'center',
+  justifyContent: 'flex-end',
   gap: '$sizes$100',
+
+  '@tablet': {
+    justifyContent: 'center',
+  },
 })
 
 export const Icon = styled('a', {
@@ -769,7 +773,7 @@ export const Header: FunctionComponent<HeaderProps> = ({ categories }) => {
         </MobileMenuNavigation>
       </MobileMenuRoot>
 
-      <SearchBar />
+      {/* <SearchBar /> */}
 
       <Navigation>
         <Link href="/" passHref>
@@ -796,10 +800,10 @@ export const Header: FunctionComponent<HeaderProps> = ({ categories }) => {
         ))}
       </Navigation>
 
-      <Section>
-        <SearchIcon tabIndex={0} as="button">
+      <Section css={{ justifyContent: 'flex-end' }}>
+        {/* <SearchIcon tabIndex={0} as="button">
           <Icons.MagnifyingGlass size={DEFAULT_ICON_SIZE} />
-        </SearchIcon>
+        </SearchIcon> */}
 
         {data?.user ? (
           <Link href="/perfil" passHref>

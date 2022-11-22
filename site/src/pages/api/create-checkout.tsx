@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import Stripe from 'stripe'
 
 const stripeAPI = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2022-08-01',
+  apiVersion: '2022-11-15',
 })
 
 export default async function handler(
@@ -15,7 +15,7 @@ export default async function handler(
         const { line_items, success_url, cancel_url } = request.body
 
         const stripeSession = await stripeAPI.checkout.sessions.create({
-          payment_method_types: ['card'],
+          payment_method_types: ['card', 'boleto'],
           mode: 'payment',
           line_items: JSON.parse(line_items),
           success_url,

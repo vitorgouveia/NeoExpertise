@@ -10,7 +10,7 @@ import { Heading } from '@/components/heading'
 import { Product } from '@/components/product'
 import * as Select from '@/components/input/select'
 import { useMemo, useState } from 'react'
-import { useTypeSafeRouterParams } from './pc-gamer/[pc]'
+import { useTypeSafeRouterParams } from '../pc-gamer/[pc]'
 
 const CategoryCoverRoot = styled('section', {
   height: '40vh',
@@ -274,7 +274,10 @@ const Department: NextPage<{
                   {subDepartments.map(({ slug: subSlug, name: subName }) => (
                     <li key={subSlug}>
                       <Link href={`/${slug}/${subSlug}`}>
-                        <SubDepartment>{subName}</SubDepartment>
+                        <SubDepartment>
+                          {subName.substring(0, 20)}
+                          {subName.length > 20 ? '...' : null}
+                        </SubDepartment>
                       </Link>
                     </li>
                   ))}
@@ -348,7 +351,20 @@ const Department: NextPage<{
           <ProductGrid>
             {sortedProducts.map((props, index) => (
               <li key={index}>
-                <Product {...props} />
+                <Product
+                  {...props}
+                  css={{
+                    height: '550px',
+                    img: {
+                      width: '218px !important',
+                      height: '218px !important',
+                      aspectRatio: '1/1',
+                    },
+                    main: {
+                      height: '100%',
+                    },
+                  }}
+                />
               </li>
             ))}
           </ProductGrid>

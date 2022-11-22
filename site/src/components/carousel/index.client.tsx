@@ -65,16 +65,9 @@ const NavigationProgress = styled('div', {
 
   position: 'absolute !important',
 
-  '@tablet': {
+  '@desktop': {
     display: 'flex !important',
 
-    top: 'unset !important',
-    left: '$sizes$400 !important',
-    bottom: '$sizes$200 !important',
-    right: 'unset !important',
-  },
-
-  '@desktop': {
     top: 'unset !important',
     left: 'unset !important',
     bottom: '$sizes$200 !important',
@@ -225,19 +218,20 @@ const ProductCard = styled('div', {
 
   position: 'absolute',
   left: '10vw',
+
   // left: 'calc($sizes$1000 * 2)',
   transform: 'translate(0%, -50%)',
   zIndex: 10,
   bottom: '10%',
 
-  '> *:not(h1)': {
+  '> *:not(.title)': {
     display: 'none !important',
   },
 
   '@tablet': {
     top: '50%',
 
-    '> *:not(h1)': {
+    '> *:not(.title)': {
       display: 'flex !important',
     },
 
@@ -259,6 +253,7 @@ const ProductCard = styled('div', {
 
 const ProductBackgroundImageContainer = styled('div', {
   width: '100%',
+  height: '100%',
   img: {
     width: '100%',
     objectFit: 'fill',
@@ -273,8 +268,8 @@ const ProductBackgroundImageContainer = styled('div', {
 
     background: 'rgba(0, 0, 0, 0.8)',
 
-    width: '100%',
-    height: '100%',
+    width: '101%',
+    height: '101%',
 
     position: 'absolute',
     top: '50%',
@@ -397,10 +392,22 @@ const Carousel: FunctionComponent = () => {
             return (
               <SwiperSlide style={ProductRootStyles} key={id}>
                 <ProductCard>
-                  <Heading.subtitle as="h1">{name}</Heading.subtitle>
+                  <Link href={`/produto/${slug}`} passHref>
+                    <a className="title">
+                      <Heading.subtitle
+                        as="h1"
+                        css={{
+                          '@mobile': { fontSize: '$h6 !important' },
+                          color: '#fff',
+                        }}
+                      >
+                        {name}
+                      </Heading.subtitle>
+                    </a>
+                  </Link>
 
-                  <Heading.paragraph>
-                    {description.substring(0, 60)}...
+                  <Heading.paragraph css={{ color: 'hsl(0, 0%, 70%)' }}>
+                    {description.substring(0, 60)}
                   </Heading.paragraph>
 
                   <Rating
@@ -415,8 +422,16 @@ const Carousel: FunctionComponent = () => {
                     <Link href={`/produto/${slug}`} passHref>
                       <Button
                         as="a"
+                        css={{
+                          background: '$primaryNormal',
+                          border: 'none',
+                          color: '#fff',
+                          p: {
+                            fontWeight: 'bold !important',
+                          },
+                        }}
                         className="buy-now"
-                        variant="outlined"
+                        variant="default"
                         tabIndex={-1}
                       >
                         <Heading.paragraph>Comprar Agora</Heading.paragraph>
@@ -426,7 +441,7 @@ const Carousel: FunctionComponent = () => {
                     <Button
                       className="cart"
                       variant="outlined"
-                      css={{ background: 'transparent' }}
+                      css={{ background: 'transparent', borderColor: '#fff' }}
                       tabIndex={-1}
                       disabled={status !== 'authenticated' ? true : false}
                       onClick={async () => {
@@ -468,7 +483,7 @@ const Carousel: FunctionComponent = () => {
                         }
                       }}
                     >
-                      <ShoppingCart size={24} />
+                      <ShoppingCart color={'#fff'} size={24} />
                     </Button>
                   </ProductButtonWrapper>
                 </ProductCard>

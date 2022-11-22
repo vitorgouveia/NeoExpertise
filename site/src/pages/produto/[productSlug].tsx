@@ -1,6 +1,6 @@
 import { GetServerSideProps, NextPage } from 'next'
 import { CreditCard, QrCode, Truck, ShoppingCart } from 'phosphor-react'
-import Router from 'next/router'
+import Router, { useRouter } from 'next/router'
 
 import { prisma } from '@/lib/prisma'
 import { styled } from '@/stitches.config'
@@ -61,6 +61,7 @@ const ProductContainer = styled('section', {
 
 const OtherPhotos = styled('div', {
   width: '150px',
+  flexShrink: '0',
 
   display: 'flex',
   flexDirection: 'column',
@@ -82,6 +83,7 @@ const OtherPhotos = styled('div', {
 const MainImage = styled('img', {
   cursor: 'pointer',
   flex: 1,
+  width: '430px',
   aspectRatio: '1/1',
   height: 'auto',
   objectFit: 'cover',
@@ -116,8 +118,13 @@ const SidebarCardContent = styled('div', {
 const Product: NextPage<{
   product: ProductProps | null
 }> = ({ product }) => {
+  const { push } = useRouter()
   const { status, data: userdata } = useSession()
   const [selectedImage, setSelectedImage] = useState(product?.images[0] || '')
+  const currencyFormatter = new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  })
 
   return (
     <Container>
@@ -156,20 +163,23 @@ const Product: NextPage<{
               css={{ '*': { color: '$grayLightest !important' } }}
             >
               <Heading.small>
-                De R${' '}
-                {Math.floor(
+                De{' '}
+                {currencyFormatter.format(
                   product?.price! + product?.price! * (10 / 100)
-                ).toFixed(2)}
+                )}
               </Heading.small>
-              <Heading.subtitle3>Por R$ {product?.price}</Heading.subtitle3>
+              <Heading.subtitle3>
+                Por {currencyFormatter.format(product?.price!)}
+              </Heading.subtitle3>
               <Heading.small>
-                12x de R$ {Math.round(product?.price || 1 / 12).toFixed(2)}{' '}
+                12x de{' '}
+                {currencyFormatter.format(Math.round(product?.price || 1 / 12))}{' '}
                 s/juros no cartão
               </Heading.small>
             </SidebarCardContent>
           </SidebarSection>
 
-          <SidebarSection>
+          <SidebarSection css={{ opacity: '50%', cursor: 'not-allowed' }}>
             <QrCode size={70} />
 
             <SidebarCardContent
@@ -213,9 +223,38 @@ const Product: NextPage<{
             <Button
               variant="default"
               css={{ flex: 1, background: '$primaryNormal', border: 'none' }}
-              onClick={() => {
-                // send to checkout
-                Router.push(`/checkout?productId=${product?.id}`)
+              onClick={async () => {
+                if (status !== 'authenticated') {
+                  return
+                }
+                const body = JSON.stringify({
+                  email: userdata.user?.email,
+                  productId: product?.id,
+                })
+                try {
+                  const response = await fetch('/api/add-item-to-cart', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                      Accept: 'application/json',
+                    },
+                    body,
+                  })
+                  const data = await response.json()
+                  if (data.ok == true) {
+                    push('/checkout')
+                    // ok
+                    return
+                  } else if (data.message) {
+                    push('/checkout')
+                    return
+                  }
+
+                  alert('Alguma coisa deu errado :/')
+                } catch (error) {
+                  console.log(error)
+                  alert('Alguma coisa deu errado :(')
+                }
               }}
             >
               <Heading.subtitle3>Comprar</Heading.subtitle3>

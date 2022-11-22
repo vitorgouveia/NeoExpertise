@@ -44,7 +44,7 @@ const FooterTopics = styled('div', {
   width: '100%',
 
   display: 'flex',
-  justifyContent: 'space-between',
+  gap: '$sizes$400',
 })
 
 const Topic = styled('div', {})

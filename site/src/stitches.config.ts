@@ -95,7 +95,7 @@ export const { styled, createTheme, theme, keyframes, getCssText } =
 
       colors: {
         grayDarkest: 'hsl(234, 20%, 6%)',
-        grayDarker: 'hsl(234, 20%, 12%)',
+        grayDarker: 'hsl(234, 20%, 16%)',
         grayNormal: 'hsl(234, 20%, 20%)',
         grayLighter: 'hsl(234, 20%, 55%)',
         grayLightest: 'hsl(234, 20%, 90%)',
@@ -130,11 +130,11 @@ export const { styled, createTheme, theme, keyframes, getCssText } =
 
 export const waterLightning = createTheme({
   colors: {
-    grayDarkest: 'hsl(234, 20%, 90%)',
-    grayDarker: 'hsl(234, 20%, 95%)',
-    grayNormal: 'hsl(234, 20%, 80%)',
-    grayLighter: 'hsl(234, 20%, 10%)',
-    grayLightest: 'hsl(234, 20%, 60%)',
+    grayDarkest: 'hsl(234, 0%, 95%)',
+    grayDarker: 'hsl(234, 20%, 85%)',
+    grayNormal: 'hsl(234, 20%, 70%)',
+    grayLighter: 'hsl(234, 20%, 40%)',
+    grayLightest: 'hsl(234, 20%, 5%)',
   },
 })
 
