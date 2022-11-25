@@ -228,7 +228,7 @@ const Product: NextPage<{
                   return
                 }
                 const body = JSON.stringify({
-                  email: userdata.user?.email,
+                  email: userdata?.user?.email,
                   productId: product?.id,
                 })
                 try {
@@ -268,7 +268,7 @@ const Product: NextPage<{
                   return
                 }
                 const body = JSON.stringify({
-                  email: userdata.user?.email,
+                  email: userdata?.user?.email,
                   productId: product?.id,
                 })
                 try {

@@ -450,7 +450,7 @@ const Carousel: FunctionComponent = () => {
                         }
 
                         const body = JSON.stringify({
-                          email: userdata.user?.email,
+                          email: userdata?.user?.email,
                           productId: id,
                         })
 

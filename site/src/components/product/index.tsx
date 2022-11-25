@@ -185,7 +185,7 @@ export const Product: FunctionComponent<ProductProps> = ({
               }
 
               const body = JSON.stringify({
-                email: userdata.user?.email,
+                email: userdata?.user?.email,
                 productId: id,
               })
 
