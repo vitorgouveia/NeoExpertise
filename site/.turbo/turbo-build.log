@@ -1,0 +1,58 @@
+[35mnext-commerce:build[0m: cache hit, replaying output [2mbd0493326d705471[0m
+[35mnext-commerce:build: [0m$ next build
+[35mnext-commerce:build: [0minfo  - Loaded env from /home/vitor.gouveia/www/personal/NeoExpertise/site/.env
+[35mnext-commerce:build: [0mwarn  - Invalid next.config.js options detected: 
+[35mnext-commerce:build: [0m  - The root value has an unexpected property, esModule, which is not in the list of allowed properties (amp, analyticsId, assetPrefix, basePath, cleanDistDir, compiler, compress, crossOrigin, devIndicators, distDir, env, eslint, excludeDefaultMomentLocales, experimental, exportPathMap, future, generateBuildId, generateEtags, headers, httpAgentOptions, i18n, images, onDemandEntries, optimizeFonts, output, outputFileTracing, pageExtensions, poweredByHeader, productionBrowserSourceMaps, publicRuntimeConfig, reactStrictMode, redirects, rewrites, sassOptions, serverRuntimeConfig, staticPageGenerationTimeout, swcMinify, trailingSlash, typescript, useFileSystemPublicRoutes, webpack).
+[35mnext-commerce:build: [0m
+[35mnext-commerce:build: [0mSee more info here: https://nextjs.org/docs/messages/invalid-next-config
+[35mnext-commerce:build: [0mwarn  - You have enabled experimental feature (serverComponents) in next.config.js.
+[35mnext-commerce:build: [0mwarn  - Experimental features are not covered by semver, and may cause unexpected or broken application behavior. Use at your own risk.
+[35mnext-commerce:build: [0m
+[35mnext-commerce:build: [0minfo  - Linting and checking validity of types...
+[35mnext-commerce:build: [0minfo  - Creating an optimized production build...
+[35mnext-commerce:build: [0mwarn  - You have experimental React Server Components enabled. Continue at your own risk.
+[35mnext-commerce:build: [0minfo  - Compiled successfully
+[35mnext-commerce:build: [0minfo  - Collecting page data...
+[35mnext-commerce:build: [0mWarning: You have opted-out of Automatic Static Optimization due to `getInitialProps` in `pages/_app`. This does not opt-out pages with `getStaticProps`
+[35mnext-commerce:build: [0mRead more: https://nextjs.org/docs/messages/opt-out-auto-static-optimization
+[35mnext-commerce:build: [0m
+[35mnext-commerce:build: [0mRoute (pages)                              Size     First Load JS
+[35mnext-commerce:build: [0m┌ λ /                                      4.95 kB         200 kB
+[35mnext-commerce:build: [0m├   /_app                                  0 B             163 kB
+[35mnext-commerce:build: [0m├ λ /[category]                            3.18 kB         198 kB
+[35mnext-commerce:build: [0m├ λ /[category]/[subcategory]              290 B           163 kB
+[35mnext-commerce:build: [0m├ λ /404                                   194 B           163 kB
+[35mnext-commerce:build: [0m├ λ /api/add-item-to-cart                  0 B             163 kB
+[35mnext-commerce:build: [0m├ λ /api/auth/[...nextauth]                0 B             163 kB
+[35mnext-commerce:build: [0m├ λ /api/create-checkout                   0 B             163 kB
+[35mnext-commerce:build: [0m├ λ /api/remove-item-from-cart             0 B             163 kB
+[35mnext-commerce:build: [0m├ λ /api/send-email                        0 B             163 kB
+[35mnext-commerce:build: [0m├ λ /api/trpc/[trpc]                       0 B             163 kB
+[35mnext-commerce:build: [0m├ λ /cadastro                              2.25 kB         165 kB
+[35mnext-commerce:build: [0m├ λ /cancel                                301 B           163 kB
+[35mnext-commerce:build: [0m├ λ /catalogo                              1.39 kB         164 kB
+[35mnext-commerce:build: [0m├ λ /checkout                              4.61 kB         167 kB
+[35mnext-commerce:build: [0m├ λ /equipe/[contributorName]              677 B           163 kB
+[35mnext-commerce:build: [0m├ λ /esqueci-a-senha                       2.06 kB         165 kB
+[35mnext-commerce:build: [0m├ λ /faq                                   6.2 kB          169 kB
+[35mnext-commerce:build: [0m├ λ /login                                 2.13 kB         165 kB
+[35mnext-commerce:build: [0m├ λ /marcas/[marca]                        3.11 kB         198 kB
+[35mnext-commerce:build: [0m├ λ /pc-gamer                              288 B           163 kB
+[35mnext-commerce:build: [0m├ λ /pc-gamer/[pc]                         351 B           163 kB
+[35mnext-commerce:build: [0m├ λ /perfil                                6.94 kB         170 kB
+[35mnext-commerce:build: [0m├ λ /perfil/meus-dados                     2.04 kB         165 kB
+[35mnext-commerce:build: [0m├ λ /perfil/pagamentos                     1.52 kB         164 kB
+[35mnext-commerce:build: [0m├ λ /produto/[productSlug]                 8.05 kB         203 kB
+[35mnext-commerce:build: [0m├   └ css/17c17b686e5f86e5.css             662 B
+[35mnext-commerce:build: [0m├ λ /quem-somos                            2.39 kB         165 kB
+[35mnext-commerce:build: [0m├ λ /redefinir-senha                       1.28 kB         164 kB
+[35mnext-commerce:build: [0m└ λ /sucess                                304 B           163 kB
+[35mnext-commerce:build: [0m+ First Load JS shared by all              166 kB
+[35mnext-commerce:build: [0m  ├ chunks/framework-706b777f121deb6c.js   45.3 kB
+[35mnext-commerce:build: [0m  ├ chunks/main-ea9346bd41e11d5e.js        32.7 kB
+[35mnext-commerce:build: [0m  ├ chunks/pages/_app-dbe4c8dc52324c88.js  83.7 kB
+[35mnext-commerce:build: [0m  ├ chunks/webpack-45c1d38871d29bef.js     1.03 kB
+[35mnext-commerce:build: [0m  └ css/7866965bc540266c.css               3.74 kB
+[35mnext-commerce:build: [0m
+[35mnext-commerce:build: [0mλ  (Server)  server-side renders at runtime (uses getInitialProps or getServerSideProps)
+[35mnext-commerce:build: [0m

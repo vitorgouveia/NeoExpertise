@@ -110,7 +110,7 @@ const Perfil: NextPage = () => {
         },
       }
     )
-  }, [createAccount, email, name, password])
+  }, [createAccount, email, name, password, checkPassword])
 
   return (
     <Container>
