@@ -49,7 +49,7 @@ const SectionContentRoot = styled('div', {
 
   img: {
     width: '45%',
-    maxHeight: '240px',
+    maxHeight: '340px',
     objectFit: 'cover',
     aspectRatio: '1/6',
     borderRadius: '$sizes$100',
@@ -196,7 +196,7 @@ const QuemSomos: NextPage<{
 
       {sections?.map(
         ({ title, description, img, imageDescription, imagePosition }) => (
-          <SectionRoot key={title}>
+          <SectionRoot css={{ padding: '$sizes$800 $sizes$500' }} key={title}>
             <SectionContentRoot imagePosition={imagePosition}>
               <img src={img} alt={imageDescription} />
 
@@ -303,7 +303,17 @@ export default QuemSomos
 //         },
 //       ]
 export const getServerSideProps: GetServerSideProps = async () => {
-  const contributors = await prisma.contributor.findMany()
+  const contributors = await prisma.contributor.findMany({
+    select: {
+      createdAt: false,
+      updatedAt: false,
+      name: true,
+      description: true,
+      slug: true,
+      imgUrl: true,
+      imgDescription: true,
+    },
+  })
 
   return {
     props: {

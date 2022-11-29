@@ -5,7 +5,6 @@ export const globalStyles = globalCss({
     margin: 0,
     padding: 0,
     boxSizing: 'border-box',
-    fontFamily: 'sans-serif',
   },
   button: {
     cursor: 'pointer',
@@ -27,7 +26,7 @@ export const globalStyles = globalCss({
   body: {
     background: '$grayDarkest',
     color: '$grayLightest',
-    fontFamily: '$darkerGrotesque',
+    fontFamily: 'Montserrat, sans-serif',
     fontSize: '$fontSize100',
   },
   '.mobile-menu-overlay, .modal-overlay': {
@@ -58,20 +57,16 @@ export const globalStyles = globalCss({
 export const { styled, createTheme, theme, keyframes, getCssText } =
   createStitches({
     theme: {
-      fonts: {
-        darkerGrotesque: 'Darker Grotesque',
-      },
-
       fontSizes: {
         // min font size 18, step 6px
         small: '14px',
         paragraph: '20px',
-        h6: '26px',
-        h5: '32px',
-        h4: '38px',
-        h3: '44px',
-        h2: '50px',
-        h1: '56px',
+        h6: '20px',
+        h5: '26px',
+        h4: '32px',
+        h3: '38px',
+        h2: '44px',
+        h1: '50px',
       },
 
       fontWeights: {

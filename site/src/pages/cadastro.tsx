@@ -84,9 +84,15 @@ const Perfil: NextPage = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [checkPassword, setCheckPassword] = useState('')
   const [formErrorMessage, setFormErrorMessage] = useState('')
 
   const handleCreateAccount = useCallback(async () => {
+    if (password !== checkPassword) {
+      alert('As senhas não batem!')
+      return
+    }
+
     createAccount.mutate(
       {
         name,
@@ -172,13 +178,20 @@ const Perfil: NextPage = () => {
         <Input.Label>
           <div style={InputStyles.label}>
             <Heading.subtitle3>Senha</Heading.subtitle3>
-            <Link href="/esqueci-a-senha" passHref>
-              <a>
-                <Heading.paragraph>
-                  <strong>Esqueci a senha</strong>
-                </Heading.paragraph>
-              </a>
-            </Link>
+          </div>
+        </Input.Label>
+      </Input.WithLabel>
+
+      <Input.WithLabel
+        style={InputStyles.root}
+        value={checkPassword}
+        onChange={(event) => setCheckPassword(event.target.value)}
+        type="password"
+        placeholder="*******************"
+      >
+        <Input.Label>
+          <div style={InputStyles.label}>
+            <Heading.subtitle3>Confime Sua Senha</Heading.subtitle3>
           </div>
         </Input.Label>
       </Input.WithLabel>

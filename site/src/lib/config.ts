@@ -8,11 +8,7 @@ export const categories = [
     href: '/perifericos',
   },
   {
-    name: 'Utilitário',
-    href: '/utilitarios-tecnologicos',
-  },
-  {
-    name: 'Decorativo',
-    href: '/decorativos',
+    name: 'Quem Somos',
+    href: '/quem-somos',
   },
 ]
