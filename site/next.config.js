@@ -1,8 +1,6 @@
 const withImages = require('next-images')
 
 /** @type {import("next").NextConfig} */
-const config = withImages({
-  esModule: true,
-})
+const config = {}
 
 module.exports = config

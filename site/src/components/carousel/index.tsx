@@ -15,7 +15,8 @@ import { styled, keyframes, theme } from '@/stitches.config'
 import { useSwiperRef } from './use-swiper'
 import { Button } from '@/components/button'
 import { Heading } from '@/components/heading'
-import { Rating } from 'react-simple-star-rating'
+// import { Rating } from 'react-simple-star-rating'
+import StarRatings from 'react-star-ratings'
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
 
@@ -405,19 +406,24 @@ const Carousel: FunctionComponent = () => {
                       </Heading.subtitle>
                     </a>
                   </Link>
-
                   <Heading.paragraph css={{ color: 'hsl(0, 0%, 70%)' }}>
                     {description.substring(0, 60)}
                   </Heading.paragraph>
-
-                  <Rating
+                  <StarRatings
+                    rating={convertRatingToPercentage(rating)}
+                    starRatedColor="#D1C647"
+                    numberOfStars={5}
+                    starDimension="32px"
+                    starSpacing="2px"
+                    name="rating"
+                  />
+                  {/* <Rating
                     initialValue={convertRatingToPercentage(rating)}
                     fillColor="#D1C647"
                     emptyColor="#F5F2D6"
                     size={24}
                     readonly
-                  />
-
+                  /> */}
                   <ProductButtonWrapper>
                     <Link href={`/produto/${slug}`} passHref>
                       <Button

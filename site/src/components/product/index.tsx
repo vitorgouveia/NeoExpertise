@@ -1,5 +1,6 @@
 import { FunctionComponent } from 'react'
 import { Rating } from 'react-simple-star-rating'
+import StarRatings from 'react-star-ratings'
 import { ShoppingCart } from 'phosphor-react'
 
 import { styled } from '@/stitches.config'
@@ -137,13 +138,21 @@ export const Product: FunctionComponent<ProductProps> = ({
         </Link>
 
         <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
-          <Rating
+          <StarRatings
+            rating={convertRatingToPercentage(rating)}
+            starRatedColor="#D1C647"
+            starDimension="16px"
+            starSpacing="2px"
+            numberOfStars={5}
+            name="rating"
+          />
+          {/* <Rating
             initialValue={convertRatingToPercentage(rating)}
             fillColor="#D1C647"
             emptyColor="#F5F2D6"
             size={24}
             readonly
-          />
+          /> */}
 
           <Heading.paragraph>{`(${sold})`}</Heading.paragraph>
         </div>
