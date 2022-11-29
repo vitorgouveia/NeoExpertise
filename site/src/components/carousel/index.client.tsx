@@ -411,7 +411,7 @@ const Carousel: FunctionComponent = () => {
                   </Heading.paragraph>
 
                   <Rating
-                    ratingValue={convertRatingToPercentage(rating)}
+                    initialValue={convertRatingToPercentage(rating)}
                     fillColor="#D1C647"
                     emptyColor="#F5F2D6"
                     size={24}
