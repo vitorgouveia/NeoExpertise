@@ -5,7 +5,7 @@ import { ShoppingCart } from 'phosphor-react'
 import { styled } from '@/stitches.config'
 import { Button } from '@/components/button'
 import { Heading } from '@/components/heading'
-import { convertRatingToPercentage } from '../carousel/index.client'
+import { convertRatingToPercentage } from '../carousel'
 import { CSS } from '@stitches/react'
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
@@ -138,7 +138,7 @@ export const Product: FunctionComponent<ProductProps> = ({
 
         <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
           <Rating
-            ratingValue={convertRatingToPercentage(rating)}
+            initialValue={convertRatingToPercentage(rating)}
             fillColor="#D1C647"
             emptyColor="#F5F2D6"
             size={24}

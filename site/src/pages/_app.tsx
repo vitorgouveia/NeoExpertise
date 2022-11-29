@@ -28,6 +28,7 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
 
   return getLayout(
     <ThemeProvider>
+      {/* @ts-ignore */}
       <SessionProvider session={pageProps.session}>
         <Head>
           <title>NeoExpertise</title>

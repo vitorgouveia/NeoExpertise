@@ -14,7 +14,7 @@ import { trpc } from '@/lib/trpc'
 import { Product } from '@/components/product'
 import { Heading } from '@/components/heading'
 import { Button } from '@/components/button'
-import Carousel, { NavigationButton } from '@/components/carousel/index.client'
+import Carousel, { NavigationButton } from '@/components/carousel'
 import { useSwiperRef } from '@/components/carousel/use-swiper'
 
 const generateRandom = ({ min, max }: { min: number; max: number }) => {

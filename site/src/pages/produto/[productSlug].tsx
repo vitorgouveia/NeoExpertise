@@ -6,7 +6,7 @@ import { prisma } from '@/lib/prisma'
 import { styled } from '@/stitches.config'
 import { Heading } from '@/components/heading'
 import { Rating } from 'react-simple-star-rating'
-import { convertRatingToPercentage } from '@/components/carousel/index.client'
+import { convertRatingToPercentage } from '@/components/carousel'
 import { Button } from '@/components/button'
 import { ProductProps } from '@/components/product'
 import { useState } from 'react'
@@ -149,7 +149,7 @@ const Product: NextPage<{
           <Heading.subtitle>{product?.name}</Heading.subtitle>
 
           <Rating
-            ratingValue={convertRatingToPercentage(product?.rating || 0)}
+            initialValue={convertRatingToPercentage(product?.rating || 0)}
             fillColor="#D1C647"
             emptyColor="#F5F2D6"
             size={32}
