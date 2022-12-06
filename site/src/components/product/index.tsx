@@ -57,7 +57,7 @@ const ProductRoot = styled('div', {
   width: '100%',
 
   '@desktop': {
-    maxWidth: '230px',
+    // maxWidth: '230px',
   },
 
   background: '$grayDarker',
@@ -128,10 +128,10 @@ export const Product: FunctionComponent<ProductProps> = ({
       <img src={images[0]} alt={`Product's ${name} picture`} />
 
       <ProductContent>
-        <Link href={`/produto/${slug}`} passHref>
+        <Link style={{ height: '50px' }} href={`/produto/${slug}`} passHref>
           <Heading.paragraph
             as="a"
-            css={{ strong: { color: '$grayLightest' } }}
+            css={{ strong: { color: '$grayLightest' }, height: '50px' }}
           >
             <strong>{formattedTitle}</strong>
           </Heading.paragraph>

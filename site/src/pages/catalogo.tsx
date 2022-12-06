@@ -61,7 +61,7 @@ const DepartmentCardRoot = styled('a', {
   width: '100%',
   height: '100%',
 
-  display: 'flex',
+  // display: 'flex',
   alignItems: 'flex-end',
   justifyContent: 'flex-start',
 

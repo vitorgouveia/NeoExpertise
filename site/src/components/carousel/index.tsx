@@ -353,7 +353,7 @@ const Carousel: FunctionComponent = () => {
         style={{
           background: theme.colors['grayDarkest'].value,
           width: '100%',
-          maxWidth: '1600px !important',
+          // maxWidth: '1600px !important',
           overflow: 'hidden',
           height: '60vh',
           maxHeight: '1000px !important',
@@ -369,7 +369,7 @@ const Carousel: FunctionComponent = () => {
         }}
         loop={true}
         autoplay={{
-          delay: 3000,
+          delay: 4000,
           pauseOnMouseEnter: true,
           disableOnInteraction: false,
         }}

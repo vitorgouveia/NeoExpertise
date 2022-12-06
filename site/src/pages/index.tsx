@@ -2,7 +2,7 @@ import { FunctionComponent, Suspense, useEffect, useState } from 'react'
 import { CSS } from '@stitches/react'
 import type { NextPageWithLayout } from '@/@types/next'
 import Link from 'next/link'
-import { CaretUp, PlusCircle } from 'phosphor-react'
+import { CaretUp, Columns, PlusCircle } from 'phosphor-react'
 
 import { Navigation, Pagination, FreeMode, Autoplay } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -80,20 +80,21 @@ const SectionHeader = styled('header', {
 const ProductGrid = styled('ul', {
   display: 'flex',
   alignItems: 'stretch',
+  justifyContent: 'center',
   flexWrap: 'wrap',
   gap: '$sizes$400',
 
   '@tablet': {
-    gap: '$sizes$600',
-    justifyContent: 'space-between',
+    // gap: '$sizes$600',
+    // justifyContent: 'space-between',
     li: {
       width: 'calc(100% / 2 - 24px)',
     },
   },
 
   '@desktop': {
-    gap: '$sizes$800',
-    justifyContent: 'unset',
+    // gap: '$sizes$800',
+    // justifyContent: 'space-between',
     li: {
       width: 'max-content',
     },
@@ -124,15 +125,15 @@ const Home: NextPageWithLayout = () => {
         <SectionHeader>
           <Heading.subtitle>Melhores Ofertas</Heading.subtitle>
           <Link href="/ofertas" passHref>
-            <Heading.paragraph as="a">ver todas ofertas</Heading.paragraph>
+            <Heading.paragraph as="a">Todas Ofertas</Heading.paragraph>
           </Link>
         </SectionHeader>
 
-        <ProductGrid css={{ justifyContent: 'center' }}>
+        <ProductGrid css={{}}>
           {!isLoading &&
             products?.map((props, index) => (
               <li
-                style={{ width: '230px', height: '490px !important' }}
+                style={{ width: '280px', height: '490px !important' }}
                 key={index}
               >
                 <Product
@@ -169,7 +170,7 @@ function DailyOffers() {
         <Heading.subtitle>Ofertas Do Dia</Heading.subtitle>
         <Link href="/ofertas" passHref>
           <Heading.paragraph as="a" css={{ textDecoration: 'underline' }}>
-            ver todas ofertas
+            Todas Ofertas
           </Heading.paragraph>
         </Link>
       </SectionHeader>
@@ -344,9 +345,9 @@ function Departments() {
       align="left"
     >
       <SectionHeader>
-        <Heading.subtitle>Compre por departamento</Heading.subtitle>
+        <Heading.subtitle>Compre Por Departamento</Heading.subtitle>
         <Link href="/catalogo" passHref>
-          <Heading.paragraph as="a">ver mais marcas</Heading.paragraph>
+          <Heading.paragraph as="a">Ver Mais</Heading.paragraph>
         </Link>
       </SectionHeader>
 
@@ -366,7 +367,7 @@ function Departments() {
             <SectionHeader>
               <Heading.subtitle2>{name}</Heading.subtitle2>
               <Link href={`/${slug}`} passHref>
-                <Heading.paragraph as="a">ver mais {name}</Heading.paragraph>
+                <Heading.paragraph as="a">Ver Mais</Heading.paragraph>
               </Link>
             </SectionHeader>
 
@@ -502,7 +503,7 @@ function Brands() {
       <SectionHeader>
         <Heading.subtitle>Compre Por Marca</Heading.subtitle>
         <Link href="/marcas" passHref>
-          <Heading.paragraph as="a">ver mais marcas</Heading.paragraph>
+          <Heading.paragraph as="a">Ver Mais</Heading.paragraph>
         </Link>
       </SectionHeader>
 
