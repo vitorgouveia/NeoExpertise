@@ -7,8 +7,4 @@ export const languages = [
     name: 'EN-US',
     countryCode: 'US',
   },
-  {
-    name: 'UK',
-    countryCode: 'RU',
-  },
 ]

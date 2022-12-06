@@ -4,11 +4,11 @@ export const categories = [
     href: '/hardware-e-peças',
   },
   {
-    name: 'Periférico',
-    href: '/perifericos',
-  },
-  {
     name: 'Quem Somos',
     href: '/quem-somos',
+  },
+  {
+    name: 'Suporte',
+    href: '/faq',
   },
 ]

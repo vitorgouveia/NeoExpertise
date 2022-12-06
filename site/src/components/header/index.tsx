@@ -62,9 +62,7 @@ const HeaderRoot = styled('header', {
   // top: 0,
 
   width: '100%',
-  maxWidth: '1600px',
   margin: 'auto',
-  // height: '64px',
   padding: '$sizes$100 $sizes$300',
   background: '$grayDarker',
   borderBottom: '2px solid $primaryNormal',
@@ -79,7 +77,7 @@ const HeaderRoot = styled('header', {
     gap: '$sizes$200',
 
     section: {
-      gap: '$sizes$50',
+      gap: '$sizes$100',
     },
   },
   '@mobile': {
@@ -107,13 +105,13 @@ const Navigation = styled('nav', {
 })
 
 const NavigationItem = styled('a', {
-  fontWeight: 'bold',
+  // fontWeight: 'bold',
   cursor: 'pointer',
   borderRadius: '$sizes$50',
   fontSize: '$paragraph',
 
-  padding: '0px 5px',
-  paddingBottom: '4px',
+  // padding: '0px 5px',
+  // paddingBottom: '4px',
 
   strong: {
     verticalAlign: 'baseline',
@@ -348,6 +346,7 @@ const UserDropdownMenu = styled(DropdownMenu, {
 
   '@desktop': {
     display: 'flex',
+    gap: '1rem',
   },
 })
 
@@ -602,13 +601,13 @@ export const Header: FunctionComponent<HeaderProps> = ({ categories }) => {
               <Heading.subtitle2
                 css={{ color: '$grayLightest', fontSize: '$paragraph' }}
               >
-                Entre na sua conta
+                Entre Na Sua Conta
               </Heading.subtitle2>
               <Heading.paragraph
                 css={{ color: '$grayLighter', fontSize: '$small' }}
               >
-                Entre na sua conta e experiencie o melhor de e-commerce de jogos
-                no brasil
+                Entre na sua conta e experiencie o melhor de e-commerce de
+                hardware no brasil.
               </Heading.paragraph>
             </Section>
           </Section>
@@ -833,14 +832,14 @@ export const Header: FunctionComponent<HeaderProps> = ({ categories }) => {
               <DropdownMenuItem onSelect={() => Router.push('/login')}>
                 <Section css={{ width: 'max-content' }}>
                   <Icons.SignIn size={DEFAULT_ICON_SIZE} />
-                  <strong>Entrar</strong>
+                  Entrar
                 </Section>
               </DropdownMenuItem>
 
               <DropdownMenuItem onSelect={() => Router.push('/cadastro')}>
                 <Section css={{ width: 'max-content' }}>
                   <Icons.UserPlus size={DEFAULT_ICON_SIZE} />
-                  <strong>Criar conta</strong>
+                  Criar Conta
                 </Section>
               </DropdownMenuItem>
             </DropdownMenuContent>
@@ -976,9 +975,7 @@ export const Header: FunctionComponent<HeaderProps> = ({ categories }) => {
 function NavItem({ name, href }: { name: string; href: string }) {
   return (
     <Link href={href} passHref>
-      <NavigationItem tabIndex={0}>
-        <strong>{name}</strong>
-      </NavigationItem>
+      <NavigationItem tabIndex={0}>{name}</NavigationItem>
     </Link>
   )
 }

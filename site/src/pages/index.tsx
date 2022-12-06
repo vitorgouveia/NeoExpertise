@@ -500,7 +500,7 @@ function Brands() {
       align="left"
     >
       <SectionHeader>
-        <Heading.subtitle>Compre por marca</Heading.subtitle>
+        <Heading.subtitle>Compre Por Marca</Heading.subtitle>
         <Link href="/marcas" passHref>
           <Heading.paragraph as="a">ver mais marcas</Heading.paragraph>
         </Link>

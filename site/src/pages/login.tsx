@@ -92,7 +92,7 @@ const Perfil: NextPage = () => {
       <Heading.subtitle2
         css={{ fontWeight: '400', color: '$grayLighter', textAlign: 'center' }}
       >
-        Para experienciar o melhor do e-commerce de jogos.
+        Para experienciar o melhor do e-commerce de hardware.
       </Heading.subtitle2>
 
       {formErrorMessage && (
