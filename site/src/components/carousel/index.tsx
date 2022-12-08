@@ -215,7 +215,7 @@ const ProductRootStyles: CSSProperties = {
 }
 
 const ProductCard = styled('div', {
-  width: '255px',
+  // width: '255px',
 
   position: 'absolute',
   left: '10vw',
@@ -255,19 +255,28 @@ const ProductCard = styled('div', {
 const ProductBackgroundImageContainer = styled('div', {
   width: '100%',
   height: '100%',
+
   img: {
     width: '100%',
     objectFit: 'fill',
+  },
+
+  '&:hover, &:focus': {
+    transition: '250ms ease-in-out all',
+
+    '&:before': {
+      transition: '250ms ease-in-out all',
+      background: 'rgba(0, 0, 0, 0.4)',
+    },
   },
 
   position: 'relative',
 
   '&:before': {
     content: '',
+    background: 'rgba(0, 0, 0, 0.8)',
 
     aspectRatio: '1',
-
-    background: 'rgba(0, 0, 0, 0.8)',
 
     width: '101%',
     height: '101%',
@@ -282,7 +291,7 @@ const ProductBackgroundImageContainer = styled('div', {
 })
 
 const ProductButtonWrapper = styled('footer', {
-  width: '100%',
+  // width: '100%',
   height: '40px',
 
   display: 'flex',

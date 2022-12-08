@@ -73,6 +73,7 @@ const ProductRoot = styled('div', {
 })
 
 const ProductContent = styled('main', {
+  width: '100%',
   display: 'flex',
   flexDirection: 'column',
   gap: '$sizes$200',

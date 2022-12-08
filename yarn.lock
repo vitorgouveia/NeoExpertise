@@ -591,6 +591,32 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@radix-ui/react-navigation-menu@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "@radix-ui/react-navigation-menu@npm:1.1.1"
+  dependencies:
+    "@babel/runtime": ^7.13.10
+    "@radix-ui/primitive": 1.0.0
+    "@radix-ui/react-collection": 1.0.1
+    "@radix-ui/react-compose-refs": 1.0.0
+    "@radix-ui/react-context": 1.0.0
+    "@radix-ui/react-direction": 1.0.0
+    "@radix-ui/react-dismissable-layer": 1.0.2
+    "@radix-ui/react-id": 1.0.0
+    "@radix-ui/react-presence": 1.0.0
+    "@radix-ui/react-primitive": 1.0.1
+    "@radix-ui/react-use-callback-ref": 1.0.0
+    "@radix-ui/react-use-controllable-state": 1.0.0
+    "@radix-ui/react-use-layout-effect": 1.0.0
+    "@radix-ui/react-use-previous": 1.0.0
+    "@radix-ui/react-visually-hidden": 1.0.1
+  peerDependencies:
+    react: ^16.8 || ^17.0 || ^18.0
+    react-dom: ^16.8 || ^17.0 || ^18.0
+  checksum: 2a8e604d3e2e66acc2a3f01590c58d4ba08d37c4b25c9a1b7e07ccbc203a2a046110330af33ae5628c0cff6d049f539058fd0e28f362bb3a909a5d7141680bf1
+  languageName: node
+  linkType: hard
+
 "@radix-ui/react-popper@npm:1.0.0":
   version: 1.0.0
   resolution: "@radix-ui/react-popper@npm:1.0.0"
@@ -1954,6 +1980,13 @@ __metadata:
   dependencies:
     ssr-window: ^4.0.0
   checksum: b38604f74e915b4d05b6634f9ff239a708c468180f498a28ff67f2a61233697d9bd7192703b788a24541c3591e7f1a6e83a2cbf70bc871a85e033f82e19abc31
+  languageName: node
+  linkType: hard
+
+"dotenv@npm:^16.0.3":
+  version: 16.0.3
+  resolution: "dotenv@npm:16.0.3"
+  checksum: afcf03f373d7a6d62c7e9afea6328e62851d627a4e73f2e12d0a8deae1cd375892004f3021883f8aec85932cd2834b091f568ced92b4774625b321db83b827f8
   languageName: node
   linkType: hard
 
@@ -3645,6 +3678,8 @@ __metadata:
 "neo@workspace:.":
   version: 0.0.0-use.local
   resolution: "neo@workspace:."
+  dependencies:
+    "@radix-ui/react-navigation-menu": ^1.1.1
   languageName: unknown
   linkType: soft
 
@@ -3700,6 +3735,7 @@ __metadata:
     "@types/react-dom": ^18.0.6
     "@types/react-star-ratings": ^2.3.0
     bcrypt: ^5.1.0
+    dotenv: ^16.0.3
     eslint: ^8.6.0
     eslint-config-next: ^12.0.8
     eslint-config-prettier: ^8.3.0

@@ -14,6 +14,7 @@ import type { CSS } from '@stitches/react'
 import * as Icons from 'phosphor-react'
 import { CaretDownIcon } from '@radix-ui/react-icons'
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu'
+import NavigationMenuDemo from './radix-navigation'
 
 import { Switch, SwitchThumb } from '@/components/input/switch'
 import {
@@ -797,6 +798,8 @@ export const Header: FunctionComponent<HeaderProps> = ({ categories }) => {
         {categories.map((props) => (
           <NavItem key={props.name} {...props} />
         ))}
+
+        <NavigationMenuDemo></NavigationMenuDemo>
       </Navigation>
 
       <Section css={{ justifyContent: 'flex-end' }}>

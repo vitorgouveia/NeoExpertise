@@ -30,6 +30,7 @@
     "@trpc/react": "^9.27.1",
     "@trpc/server": "^9.27.1",
     "bcrypt": "^5.1.0",
+    "dotenv": "^16.0.3",
     "fuse.js": "^6.6.2",
     "next": "12",
     "next-auth": "^4.10.3",

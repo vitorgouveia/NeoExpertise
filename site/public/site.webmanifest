@@ -1,7 +1,7 @@
 {
-  "name": "Next.js Commerce",
-  "short_name": "Next.js Commerce",
-  "description": "Next.js Commerce -> https://www.nextjs.org/commerce",
+  "name": "NeoExpertise Commerce",
+  "short_name": "NeoExpertise Commerce",
+  "description": "NeoExpertise Commerce -> https://expertise-one.vercel.app/",
   "display": "standalone",
   "start_url": "/",
   "theme_color": "#fff",
@@ -9,12 +9,12 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "/icon-192x192.png",
+      "src": "/neoLogo.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "/icon-512x512.png",
+      "src": "/neoLogo.png",
       "type": "image/png",
       "sizes": "512x512"
     }

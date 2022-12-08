@@ -133,7 +133,7 @@ const Home: NextPageWithLayout = () => {
           {!isLoading &&
             products?.map((props, index) => (
               <li
-                style={{ width: '280px', height: '490px !important' }}
+                style={{ width: '280px', height: '500px !important' }}
                 key={index}
               >
                 <Product
