@@ -794,12 +794,11 @@ export const Header: FunctionComponent<HeaderProps> = ({ categories }) => {
             <Logo />
           </Icon>
         </Link>
-
-        {categories.map((props) => (
-          <NavItem key={props.name} {...props} />
-        ))}
-
         <NavigationMenuDemo></NavigationMenuDemo>
+
+        {/* {categories.map((props) => (
+          <NavItem key={props.name} {...props} />
+        ))} */}
       </Navigation>
 
       <Section css={{ justifyContent: 'flex-end' }}>

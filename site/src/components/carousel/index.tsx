@@ -299,7 +299,7 @@ const ProductButtonWrapper = styled('footer', {
   gap: '$sizes$50',
 
   button: {
-    height: '100%',
+    // height: '100%',
     justifyContent: 'center',
   },
 
@@ -313,6 +313,7 @@ const ProductButtonWrapper = styled('footer', {
 
   '.cart': {
     width: 'auto',
+    // height: '100%',
     aspectRatio: 1,
     padding: '$sizes$100',
   },
@@ -449,7 +450,7 @@ const Carousel: FunctionComponent = () => {
                         variant="default"
                         tabIndex={-1}
                       >
-                        <Heading.paragraph>Comprar Agora</Heading.paragraph>
+                        <Heading.paragraph>Comprar</Heading.paragraph>
                       </Button>
                     </Link>
 

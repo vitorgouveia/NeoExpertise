@@ -92,7 +92,7 @@ const ProductActions = styled('footer', {
   gap: '$sizes$50',
 
   button: {
-    height: '100%',
+    // height: '100%',
     justifyContent: 'center',
   },
 
