@@ -12,7 +12,7 @@ const DEFAULT_ICON_SIZE = 28
 
 const FooterRoot = styled('footer', {
   width: '100%',
-  maxWidth: '1600px',
+  // maxWidth: '1600px',
 
   margin: '0 auto',
   padding: '$sizes$600 $sizes$500',

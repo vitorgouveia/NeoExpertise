@@ -16,6 +16,7 @@ import { Heading } from '@/components/heading'
 import { Button } from '@/components/button'
 import Carousel, { NavigationButton } from '@/components/carousel'
 import { useSwiperRef } from '@/components/carousel/use-swiper'
+import { wrap } from 'module'
 
 const generateRandom = ({ min, max }: { min: number; max: number }) => {
   return Math.floor(min + Math.random() * (max - min - 1))
@@ -272,7 +273,8 @@ function MobileDepartmentPills() {
 }
 
 const DepartmentCard = styled('a', {
-  width: '100%',
+  // width: '100%',
+  width: '350px',
   height: '100%',
   borderRadius: '8px',
 
@@ -285,8 +287,8 @@ const DepartmentCard = styled('a', {
   },
 
   img: {
-    width: '100%',
-    height: '100%',
+    width: '350px',
+    height: '250px',
     objectFit: 'fill',
     borderRadius: '8px',
     filter: 'brightness(0.5)',
@@ -344,14 +346,51 @@ function Departments() {
       }}
       align="left"
     >
-      <SectionHeader>
-        <Heading.subtitle>Compre Por Departamento</Heading.subtitle>
-        <Link href="/catalogo" passHref>
-          <Heading.paragraph as="a">Ver Mais</Heading.paragraph>
-        </Link>
+      <SectionHeader
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
+        <div
+          className="title"
+          style={{
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: '1rem',
+          }}
+        >
+          <Heading.subtitle>Compre Por Departamento</Heading.subtitle>
+          <Link href="/catalogo" passHref>
+            <Heading.paragraph as="a">Ver Mais</Heading.paragraph>
+          </Link>
+        </div>
+
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '1rem',
+            justifyContent: 'center',
+            // flexDirection: 'column',
+          }}
+        >
+          {departments?.map(({ name, slug, imgUrl }) => (
+            <Link href={`/${slug}`} passHref>
+              <DepartmentCard>
+                <Heading.subtitle2 css={{ color: '#fff' }}>
+                  {name}
+                </Heading.subtitle2>
+                <img src={imgUrl} alt={`Department's ${name} image`} />
+              </DepartmentCard>
+            </Link>
+          ))}
+        </div>
       </SectionHeader>
 
-      {departments
+      {/* {departments
         ?.filter(({ products }) => products.length > 0)
         ?.map(({ name, slug, products }) => (
           <div
@@ -394,7 +433,7 @@ function Departments() {
               )}
             </ul>
           </div>
-        ))}
+        ))} */}
 
       <Swiper
         slidesPerView={5}
@@ -416,27 +455,6 @@ function Departments() {
         }}
         modules={[FreeMode, Navigation, Pagination, Autoplay]}
       >
-        {departments?.map(({ name, slug, imgUrl }) => (
-          <SwiperSlide
-            key={slug}
-            style={{
-              width: '180px !important',
-              height: '90px !important',
-              background: 'none !important',
-              borderRadius: '8px !important',
-            }}
-          >
-            <Link href={`/${slug}`} passHref>
-              <DepartmentCard>
-                <Heading.subtitle2 css={{ color: '#fff' }}>
-                  {name}
-                </Heading.subtitle2>
-                <img src={imgUrl} alt={`Department's ${name} image`} />
-              </DepartmentCard>
-            </Link>
-          </SwiperSlide>
-        ))}
-
         <NavigationButton ref={prevElRef} direction="left">
           <CaretUp size={24} weight="bold" />
         </NavigationButton>

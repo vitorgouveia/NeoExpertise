@@ -234,11 +234,15 @@ export const router = trpc
     async resolve({ ctx }) {
       return [
         {
-          name: 'Contato',
+          name: 'Contato E Institucional',
           pages: [
             {
               name: 'Quem Somos',
               href: '/quem-somos',
+            },
+            {
+              name: 'FAQ',
+              href: '/FAQ',
             },
           ],
         },

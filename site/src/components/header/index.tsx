@@ -59,7 +59,8 @@ type HeaderProps = {
 }
 
 const HeaderRoot = styled('header', {
-  // position: 'fixed',
+  position: 'fixed',
+  zIndex: '9999',
   // top: 0,
 
   width: '100%',

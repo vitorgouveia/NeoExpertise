@@ -56,7 +56,7 @@ const CardList = styled('ul', {
     justifyContent: 'center',
 
     li: {
-      width: '300px',
+      // width: '300px',
     },
   },
 
@@ -66,7 +66,7 @@ const CardList = styled('ul', {
 })
 
 const Card = styled('li', {
-  width: '300px',
+  // width: '300px',
   height: 'auto',
 
   borderRadius: '$sizes$100',
@@ -111,7 +111,7 @@ const FAQ: NextPage<{ cards: Card[] }> = ({ cards: virtualCards }) => {
           backgroundPosition: 'center',
         }}
       >
-        <Heading.title>Está com alguma dúvida?</Heading.title>
+        <Heading.title>Está Com Alguma Dúvida?</Heading.title>
 
         <SearchBar
           value={searchString}
@@ -157,9 +157,9 @@ export const getServerSideProps: GetServerSideProps = async () => {
       cards: [
         {
           id: '1',
-          name: 'Como que eu posso fazer tal coisa na plataforma da NeoExpertise?',
+          name: 'Como Fazer Compras?',
           description:
-            'Aqui explica a dúvida com uma mensagem bem longa, beeeem longa mesmo, pode explicar com bastante detalhes',
+            '- Para fazer compras na NeoExpertise procure pelo seu produto ou o selecione em nossa página de produto e clique em "Comprar" ou no ícone de carrinho ao lado.A',
         },
         {
           id: '2',
