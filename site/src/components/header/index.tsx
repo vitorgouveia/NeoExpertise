@@ -59,8 +59,8 @@ type HeaderProps = {
 }
 
 const HeaderRoot = styled('header', {
-  position: 'fixed',
-  zIndex: '9999',
+  // position: 'fixed',
+  zIndex: '39',
   // top: 0,
 
   width: '100%',
@@ -387,6 +387,7 @@ const RightSlot = styled('div', {
 })
 
 const MobileMenuRoot = styled('div', {
+  position: 'fixed',
   display: 'flex',
   flexDirection: 'column',
 

@@ -124,7 +124,7 @@ const Home: NextPageWithLayout = () => {
 
       <SectionRoot css={{ gap: '$sizes$600' }} align="left">
         <SectionHeader>
-          <Heading.subtitle>Melhores Ofertas</Heading.subtitle>
+          <Heading.subtitle3>MELHORES OFERTAS</Heading.subtitle3>
           <Link href="/ofertas" passHref>
             <Heading.paragraph as="a">Todas Ofertas</Heading.paragraph>
           </Link>
@@ -201,7 +201,7 @@ function DailyOffers() {
               css={{
                 height: '100%',
                 img: {
-                  width: '218px !important',
+                  // width: '218px !important',
                   height: '218px !important',
                   aspectRatio: '1/1',
                 },
@@ -277,6 +277,7 @@ const DepartmentCard = styled('a', {
   width: '350px',
   height: '100%',
   borderRadius: '8px',
+  position: 'relative',
 
   h3: {
     position: 'absolute',
@@ -362,7 +363,7 @@ function Departments() {
             gap: '1rem',
           }}
         >
-          <Heading.subtitle>Compre Por Departamento</Heading.subtitle>
+          <Heading.subtitle3>COMPRE POR DEPARTAMENTO</Heading.subtitle3>
           <Link href="/catalogo" passHref>
             <Heading.paragraph as="a">Ver Mais</Heading.paragraph>
           </Link>
@@ -378,6 +379,7 @@ function Departments() {
           }}
         >
           {departments?.map(({ name, slug, imgUrl }) => (
+            // eslint-disable-next-line react/jsx-key
             <Link href={`/${slug}`} passHref>
               <DepartmentCard>
                 <Heading.subtitle2 css={{ color: '#fff' }}>
@@ -435,7 +437,7 @@ function Departments() {
           </div>
         ))} */}
 
-      <Swiper
+      {/* <Swiper
         slidesPerView={5}
         freeMode={true}
         // slidesPerGroup={5}
@@ -462,7 +464,7 @@ function Departments() {
         <NavigationButton ref={nextElRef} direction="right">
           <CaretUp size={24} weight="bold" />
         </NavigationButton>
-      </Swiper>
+      </Swiper> */}
     </SectionRoot>
   )
 }
@@ -519,7 +521,7 @@ function Brands() {
       align="left"
     >
       <SectionHeader>
-        <Heading.subtitle>Compre Por Marca</Heading.subtitle>
+        <Heading.subtitle3>COMPRE POR MARCA</Heading.subtitle3>
         <Link href="/marcas" passHref>
           <Heading.paragraph as="a">Ver Mais</Heading.paragraph>
         </Link>

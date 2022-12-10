@@ -11,6 +11,7 @@ import { styled } from '@/stitches.config'
 import { Heading } from '@/components/heading'
 
 const CategoryCoverRoot = styled('section', {
+  height: '40vh',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -95,9 +96,11 @@ const SectionDescription = styled('div', {
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
+  gap: '1.5rem',
 
   p: {
     color: '$grayLighter',
+    textAlign: 'center',
   },
 })
 
@@ -150,28 +153,30 @@ const QuemSomos: NextPage<{
   return (
     <>
       <CategoryCoverRoot>
-        <Heading.paragraph>
+        {/* <Heading.paragraph>
           <strong>Sobre a NeoExpertise</strong>
-        </Heading.paragraph>
+        </Heading.paragraph> */}
 
-        <Heading.subtitle2 css={{ fontWeight: '$semibold' }}>
+        <Heading.subtitle css={{ fontWeight: '$semibold' }}>
           <Typical
             steps={[
-              'Nós somos a expertise que o mercado precisa',
+              'Nós Somos A Expertise Que O Mercado Precisa',
               3000,
-              'Nós somos a revolução',
+              'Nós Somos A Revolução',
               3000,
-              'Nós somos NeoExpertise',
+              'Nós Somos NeoExpertise',
               3000,
             ]}
             loop={Infinity}
             wrapper="span"
           />
-        </Heading.subtitle2>
+        </Heading.subtitle>
       </CategoryCoverRoot>
 
-      <SectionRoot>
-        <Heading.subtitle2>O E-commerce focado na comunidade</Heading.subtitle2>
+      {/* <SectionRoot>
+        <Heading.subtitle2>
+          O E-Commerce Focado Na Sua Experiência
+        </Heading.subtitle2>
 
         <SectionContentRoot imagePosition="left">
           <img
@@ -184,15 +189,9 @@ const QuemSomos: NextPage<{
               Fomos criados com a intenção de competir no mercado contra os
               maiores e-commerces relacionados a Hardware no Brasil.
             </Heading.paragraph>
-
-            <Heading.paragraph>
-              Acabamos voltando o foco para a comunidade, assim sendo, estamos
-              criando um ambiente onde você pode não só comprar o seu hardware,
-              mas estudar sobre e conversar com outros.
-            </Heading.paragraph>
           </SectionDescription>
         </SectionContentRoot>
-      </SectionRoot>
+      </SectionRoot> */}
 
       {sections?.map(
         ({ title, description, img, imageDescription, imagePosition }) => (
@@ -201,9 +200,9 @@ const QuemSomos: NextPage<{
               <img src={img} alt={imageDescription} />
 
               <SectionDescription>
-                <Heading.subtitle2>
+                <Heading.subtitle>
                   <strong>{title}</strong>
-                </Heading.subtitle2>
+                </Heading.subtitle>
 
                 {description.map(({ id, text }) => (
                   <Heading.paragraph key={id}>{text}</Heading.paragraph>
@@ -322,7 +321,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
           title: 'Valores',
           imagePosition: 'right',
           imageDescription: '',
-          img: 'https://i.ytimg.com/vi/NkCohy3KdQo/maxresdefault.jpg',
+          img: 'https://cdn.pixabay.com/photo/2019/06/06/16/02/technology-4256272_960_720.jpg',
           description: [
             {
               id: '0',
@@ -336,7 +335,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
           title: 'O Que Fazemos',
           imagePosition: 'left',
           imageDescription: '',
-          img: 'https://i.ytimg.com/vi/NkCohy3KdQo/maxresdefault.jpg',
+          img: 'https://cdn.pixabay.com/photo/2015/01/08/18/27/startup-593341_960_720.jpg',
           description: [
             {
               id: '0',

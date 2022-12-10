@@ -159,7 +159,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
           id: '1',
           name: 'Como Fazer Compras?',
           description:
-            '- Para fazer compras na NeoExpertise procure pelo seu produto ou o selecione em nossa página de produto e clique em "Comprar" ou no ícone de carrinho ao lado.A',
+            '- Para fazer compras na NeoExpertise procure pelo seu produto ou o selecione em nossa página de produto e clique em "Comprar" ou no ícone de carrinho ao lado.\naaaaA',
         },
         {
           id: '2',

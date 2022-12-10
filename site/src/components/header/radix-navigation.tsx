@@ -82,9 +82,8 @@ const NavigationMenuDemo = () => {
                   Periféricos E Acessórios
                 </ListItemLink>
                 <ListItemLink href="/cpu">Fones De Ouvido</ListItemLink>
-                <ListItemLink href="/">Teclado</ListItemLink>
+                <ListItemLink href="/keyboards">Teclado</ListItemLink>
                 <ListItemLink href="/mouses">Mouses</ListItemLink>
-                <ListItemLink href="/controls">Controles</ListItemLink>
               </ul>
             </ul>
           </NavigationMenu.Content>

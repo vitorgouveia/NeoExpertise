@@ -253,6 +253,10 @@ export const router = trpc
               name: 'Vitor Gouveia',
               href: '/equipe/vitor-gouveia',
             },
+            {
+              name: 'Thiago Thalisson',
+              href: '/equipe/thiago',
+            },
           ],
         },
         {
