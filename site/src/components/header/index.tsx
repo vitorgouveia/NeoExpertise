@@ -396,7 +396,7 @@ const MobileMenuRoot = styled('div', {
   width: '360px',
   height: '100vh',
 
-  position: 'absolute',
+  // position: 'absolute',
   top: '0px',
   left: '0px',
 

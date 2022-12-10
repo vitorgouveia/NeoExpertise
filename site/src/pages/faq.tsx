@@ -53,26 +53,20 @@ const CardList = styled('ul', {
   },
 
   '@tablet': {
-    justifyContent: 'center',
-
     li: {
       // width: '300px',
     },
   },
-
-  '@desktop': {
-    justifyContent: 'flex-start',
-  },
 })
 
 const Card = styled('li', {
-  // width: '300px',
+  maxWidth: '700px',
   height: 'auto',
 
   borderRadius: '$sizes$100',
   backgroundColor: '$grayDarker',
   padding: '$sizes$300',
-  gap: '$sizes$300',
+  gap: '$sizes$200',
 
   display: 'flex',
   flexDirection: 'column',
@@ -159,17 +153,19 @@ export const getServerSideProps: GetServerSideProps = async () => {
           id: '1',
           name: 'Como Fazer Compras?',
           description:
-            '- Para fazer compras na NeoExpertise procure pelo seu produto ou o selecione em nossa página de produto e clique em "Comprar" ou no ícone de carrinho ao lado.\naaaaA',
+            '- Para efetuar compras em nosso site, basta escolher o produto que deseja e clicar em "Comprar". Alguns produtos poderão ter variações de cor e tamanho. Nestes casos, você deverá selecionar sempre, antes de clicar em comprar, as opções que melhor se adaptam ao seu caso; - Escolhido o produto e clicado em "Comprar", você será direcionado para o Carrinho de Compras. Confira se o produto e o valor estão de acordo com o item que você escolheu. Estando de acordo, informe seu CEP e clique em "Calcular" para calcularmos o custo do seu frete. Escolha uma das opções de frete e clique em "Fechar Pedido"; - O próximo passo é a página de identificação, onde serão solicitados seus dados cadastrais. Se for a sua primeira compra, você será direcionado para a página de cadastro. Se já for nosso cliente, entre com o login e senha e em seguida escolha o endereço de entrega do seu pedido; - O pagamento é a última etapa da sua compra. Confira portanto se todos os dados da sua compra estão corretos (produtos, quantidade, preço, endereço de entrega). Caso alguma informação esteja errada, altere o seu pedido.',
         },
         {
           id: '2',
-          name: 'Shopee',
-          description: 'bruh what the hell bruh',
+          name: 'Prazos E Entregas',
+          description:
+            'Todos os produtos serão enviados de acordo com a forma escolhida pelo cliente, muito bem embalados para evitar qualquer tipo de dano durante o transporte. O prazo para a entrega é influenciado por dois fatores: 1) De acordo com a forma de envio escolhida, já que a entrega fica a cargo dos Correios ou Transportadora. 2) De acordo com a disponibilidade do produto em estoque, o prazo de postagem (não considera prazo de entrega) de cada produto está informado no campo disponibilidade, no anúncio do mesmo. 3) A NeoExpertise não realiza entregas para Caixa Postal em nenhuma hipótese, caso não seja observado este termo, e informado uma Caixa Postal para envio, o pedido será retido e o Atendimento entrará em contato com o cliente, podendo ocasionar atrasos no envio conforme dificuldade de contato.',
         },
         {
           id: '3',
-          name: 'YummyYummy',
-          description: 'yiiiii',
+          name: 'Formas De Pagamento',
+          description:
+            'Trabalhamos com diversas formas de pagamento - Todas as formas de pagamento e prazos não consideram Sábados, Domingos e feriados. Se sua compra for feita após as 18:00Hrs, considere contagem do prazo no dia útil seguinte. CARTÃO DE CRÉDITO Opção ideal para parcelar suas compras em até 12x sem juros. - O prazo para processamento de compras por cartão de crédito leva de 1 até 3 dias úteis, quando o cartão está no mesmo nome do comprador. OBSERVAÇÃO Compras com cartões de terceiros o prazo poderá ser estendido conforme necessidade de tempo para confirmação da compra. - Pagamentos via cartão de crédito estão sujeitos a verificação cadastral de segurança de acordo com normas estabelecidas pelas operadoras de cartões de crédito. Compras com cartão estão sujeitas a solicitação de documentos para comprovação de dados. - Não efetuamos envios para Caixa Postal ou posta restante em nenhuma circunstância com pagamentos via cartão de crédito. Compras com cartões de terceiros estão sujeitas a conferência de endereço de entrega. Nos reservamos o direito de cancelar o pedido em caso de divergências cadastrais. - TODAS AS COMPRAS FEITAS COM CARTÃO ESTÃO SUJEITA A ANALISE.',
         },
       ],
     },
