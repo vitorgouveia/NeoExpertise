@@ -851,7 +851,7 @@ export const Header: FunctionComponent<HeaderProps> = ({ categories }) => {
           <Icons.ShoppingCart size={DEFAULT_ICON_SIZE} />
         </Icon>
 
-        <LanguageDropdownMenu
+        {/* <LanguageDropdownMenu
           open={isLanguageModalOpen}
           onOpenChange={(open) => setIsLanguageModalOpen(open)}
         >
@@ -940,7 +940,7 @@ export const Header: FunctionComponent<HeaderProps> = ({ categories }) => {
               )
             )}
           </DropdownMenuContent>
-        </LanguageDropdownMenu>
+        </LanguageDropdownMenu> */}
 
         <ThemeIcon
           tabIndex={0}

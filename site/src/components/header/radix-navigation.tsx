@@ -153,22 +153,4 @@ const NavigationMenuDemo = () => {
   )
 }
 
-// eslint-disable-next-line react/display-name
-const ListItem = React.forwardRef(
-  ({ className, children, title, ...props }, forwardedRef) => (
-    <li>
-      <NavigationMenu.Link asChild>
-        <a
-          className={classNames('ListItemLink', className)}
-          {...props}
-          href={forwardedRef}
-        >
-          <div className="ListItemHeading">{title}</div>
-          <p className="ListItemText">{children}</p>
-        </a>
-      </NavigationMenu.Link>
-    </li>
-  )
-)
-
 export default NavigationMenuDemo
