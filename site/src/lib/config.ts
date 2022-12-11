@@ -7,8 +7,8 @@ export const categories = [
     name: 'Quem Somos',
     href: '/quem-somos',
   },
-  {
-    name: 'Suporte',
-    href: '/faq',
-  },
+  // {
+  //   name: 'Suporte',
+  //   href: '/faq',
+  // },
 ]

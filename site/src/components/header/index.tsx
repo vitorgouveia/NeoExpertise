@@ -482,21 +482,9 @@ const mobileMenuItems = [
   },
   {
     icon: Icons.Handbag,
-    name: 'Minhas compras',
+    name: 'Minhas Compras',
     type: 'link',
     href: '/profile/orders',
-  },
-  {
-    icon: Icons.Star,
-    name: 'Favoritos',
-    type: 'link',
-    href: '/profile/favorites',
-  },
-  {
-    icon: Icons.Clock,
-    name: 'Histórico',
-    type: 'link',
-    href: '/profile/history',
   },
   {
     icon: Icons.UserCircle,
@@ -508,7 +496,7 @@ const mobileMenuItems = [
     icon: Icons.Headset,
     name: 'Ajuda',
     type: 'link',
-    href: '/help',
+    href: '/faq',
   },
 ]
 

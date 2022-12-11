@@ -50,7 +50,7 @@ const NavigationMenuDemo = () => {
           <NavigationMenu.Content className="NavigationMenuContent">
             <ul className="List one">
               <ul>
-                <ListItemLink href="/hardware">
+                <ListItemLink href="/hardware-e-peças">
                   <FaGamepad
                     style={{
                       width: '25px',
@@ -59,31 +59,67 @@ const NavigationMenuDemo = () => {
                   />
                   Hardware
                 </ListItemLink>
-                <ListItemLink href="/cpu">Processadores</ListItemLink>
-                <ListItemLink href="/graphics-card">
-                  Placas De Vídeo
+                <ListItemLink href="/hardware-e-peças/cpus">
+                  Processadores
                 </ListItemLink>
-                <ListItemLink href="/motherboards">Placas-Mãe</ListItemLink>
-                <ListItemLink href="/memorys">Memórias</ListItemLink>
-                <ListItemLink href="/hard-storage">
+                <ListItemLink href="/hardware-e-peças/coolers">
+                  Coolers Para Processadores
+                </ListItemLink>
+                <ListItemLink href="/hardware-e-peças/hdd-ssd">
                   Unidade De Armazenamento
                 </ListItemLink>
-                <ListItemLink href="/power-supplys">Fontes</ListItemLink>
+                <ListItemLink href="/hardware-e-peças/ram">
+                  Memórias RAM
+                </ListItemLink>
+                <ListItemLink href="/hardware-e-peças/motherboard">
+                  Placas-Mãe
+                </ListItemLink>
+                <ListItemLink href="/hardware-e-peças/psu">
+                  Fontes De Alimentação
+                </ListItemLink>
+                <ListItemLink href="/hardware-e-peças/gpus">
+                  Placas De Vídeo
+                </ListItemLink>
+                <ListItemLink href="/hardware-e-peças/gabinetes">
+                  Gabinetes/Cases
+                </ListItemLink>
+                <ListItemLink href="/hardware-e-peças/gabinetes">
+                  Monitores
+                </ListItemLink>
               </ul>
 
               <ul>
-                <ListItemLink href="/peripherals">
+                <ListItemLink href="/perifericos">
                   <BiHeadphone
                     style={{
                       width: '25px',
                       height: '25px',
                     }}
                   />
-                  Periféricos E Acessórios
+                  Periféricos E Decorativos
                 </ListItemLink>
-                <ListItemLink href="/cpu">Fones De Ouvido</ListItemLink>
-                <ListItemLink href="/keyboards">Teclado</ListItemLink>
-                <ListItemLink href="/mouses">Mouses</ListItemLink>
+                <ListItemLink href="utilitarios-tecnologicos/ventoinhas">
+                  Ventoinhas Para Gabinete
+                </ListItemLink>
+                <ListItemLink href="/decorativos/leds">
+                  LED E Iluminação
+                </ListItemLink>
+                <ListItemLink href="/perifericos/teclados">
+                  Teclado
+                </ListItemLink>
+                <ListItemLink href="/perifericos/mouse">Mouses</ListItemLink>
+                <ListItemLink href="/perifericos/caixas-de-som">
+                  Caixas De Som
+                </ListItemLink>
+                <ListItemLink href="/perifericos/headsets">
+                  Headsets
+                </ListItemLink>
+                <ListItemLink href="/perifericos/pendrive">
+                  Pendrive
+                </ListItemLink>
+                <ListItemLink href="/perifericos/mousepads">
+                  Mousepads
+                </ListItemLink>
               </ul>
             </ul>
           </NavigationMenu.Content>

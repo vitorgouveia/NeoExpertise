@@ -88,6 +88,14 @@ const DepartmentRoot = styled('div', {
 
 const SubDepartment = styled('a', {
   color: '$grayLighter',
+
+  padding: '$sizes$100',
+  borderRadius: '.5rem',
+  // marginBlock: '$sizes$500',
+  '&:hover, &focus': {
+    transition: 'all 250ms ease-in-out',
+    backgroundColor: '$primaryLighter',
+  },
 })
 
 const Filters = styled('section', {
@@ -249,8 +257,23 @@ const Department: NextPage<{
       <LayoutRoot>
         <SidebarRoot>
           <AllDepartments>
-            <Heading.subtitle2>All categories</Heading.subtitle2>
-
+            <Heading.subtitle2>Todas Categorias</Heading.subtitle2>
+            <Filters>
+              <Heading.subtitle2>Filtros</Heading.subtitle2>
+              {sorts.map(({ name }) => (
+                <Heading.paragraph
+                  key={name}
+                  onClick={() => {
+                    setSort(name)
+                    replace(`/${query.category}?sort=${name}`)
+                  }}
+                  data-active={sort === name}
+                  as="button"
+                >
+                  {name}
+                </Heading.paragraph>
+              ))}
+            </Filters>
             {allDepartments?.map(({ slug, name, subDepartments }) => (
               <DepartmentRoot key={slug}>
                 <Link href={`/${slug}`} passHref>
@@ -272,7 +295,12 @@ const Department: NextPage<{
 
                 <ul>
                   {subDepartments.map(({ slug: subSlug, name: subName }) => (
-                    <li key={subSlug}>
+                    <li
+                      key={subSlug}
+                      style={{
+                        marginBlock: '.75rem',
+                      }}
+                    >
                       <Link href={`/${slug}/${subSlug}`}>
                         <SubDepartment>
                           {subName.substring(0, 20)}
@@ -285,23 +313,6 @@ const Department: NextPage<{
               </DepartmentRoot>
             ))}
           </AllDepartments>
-
-          <Filters>
-            <Heading.subtitle2>Filtros</Heading.subtitle2>
-            {sorts.map(({ name }) => (
-              <Heading.paragraph
-                key={name}
-                onClick={() => {
-                  setSort(name)
-                  replace(`/${query.category}?sort=${name}`)
-                }}
-                data-active={sort === name}
-                as="button"
-              >
-                {name}
-              </Heading.paragraph>
-            ))}
-          </Filters>
         </SidebarRoot>
 
         <MobileSidebar>
