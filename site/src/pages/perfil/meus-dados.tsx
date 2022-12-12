@@ -13,6 +13,8 @@ import { Button } from '@/components/button'
 import { Switch, SwitchThumb } from '@/components/input/switch'
 import { trpc } from '@/lib/trpc'
 
+import { signOut } from "next-auth/react"
+
 const Container = styled('main', {
   display: 'flex',
   flexDirection: 'column',
@@ -47,7 +49,7 @@ const Row = styled('div', {
 })
 
 const Perfil: NextPage<{ email: string }> = ({ email: initialEmail }) => {
-  const { route } = useRouter()
+  const { route, push } = useRouter()
 
   const [emailField, setEmailField] = useState(initialEmail || '')
   const signNewsletter = trpc.useMutation(['toggle-sign-newsletter'])
@@ -76,7 +78,10 @@ const Perfil: NextPage<{ email: string }> = ({ email: initialEmail }) => {
         segurança é importante para que você possa comprar no site."
         >
           <Button
-            onClick={() => {}}
+            onClick={() => {
+              signOut()
+              push("/")
+            }}
             css={{
               borderColor: '$grayNormal',
               '&:disabled': { filter: 'opacity(50%)' },
@@ -84,6 +89,22 @@ const Perfil: NextPage<{ email: string }> = ({ email: initialEmail }) => {
             variant="outlined"
           >
             Enviar E-mail
+          </Button>
+        </Section>
+
+        <Section
+          title="Sair da sua conta"
+          description=""
+        >
+          <Button
+            onClick={() => {}}
+            css={{
+              borderColor: '$grayNormal',
+              '&:disabled': { filter: 'opacity(50%)' },
+            }}
+            variant="outlined"
+          >
+            Logout
           </Button>
         </Section>
 
