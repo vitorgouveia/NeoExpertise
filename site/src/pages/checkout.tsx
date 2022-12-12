@@ -547,7 +547,7 @@ const Checkout: NextPage<CheckoutProps> = ({
                     },
                     body: JSON.stringify({
                       line_items: JSON.stringify(line_items),
-                      success_url: `${window.location.origin}/success`,
+                      success_url: `${window.location.origin}`,
                       cancel_url: window.location.href,
                     }),
                   })

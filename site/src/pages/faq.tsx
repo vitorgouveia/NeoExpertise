@@ -135,7 +135,7 @@ const FAQ: NextPage<{ cards: Card[] }> = ({ cards: virtualCards }) => {
               <strong>{name}</strong>
             </Heading.subtitle3>
 
-            <Heading.paragraph className="dim">{description}</Heading.paragraph>
+            <p dangerouslySetInnerHTML={{ __html: description }} className="dim" />
           </Card>
         ))}
       </CardList>
@@ -153,7 +153,9 @@ export const getServerSideProps: GetServerSideProps = async () => {
           id: '1',
           name: 'Como Fazer Compras?',
           description:
-            '- Para efetuar compras em nosso site, basta escolher o produto que deseja e clicar em "Comprar". Alguns produtos poderão ter variações de cor e tamanho. Nestes casos, você deverá selecionar sempre, antes de clicar em comprar, as opções que melhor se adaptam ao seu caso; - Escolhido o produto e clicado em "Comprar", você será direcionado para o Carrinho de Compras. Confira se o produto e o valor estão de acordo com o item que você escolheu. Estando de acordo, informe seu CEP e clique em "Calcular" para calcularmos o custo do seu frete. Escolha uma das opções de frete e clique em "Fechar Pedido"; - O próximo passo é a página de identificação, onde serão solicitados seus dados cadastrais. Se for a sua primeira compra, você será direcionado para a página de cadastro. Se já for nosso cliente, entre com o login e senha e em seguida escolha o endereço de entrega do seu pedido; - O pagamento é a última etapa da sua compra. Confira portanto se todos os dados da sua compra estão corretos (produtos, quantidade, preço, endereço de entrega). Caso alguma informação esteja errada, altere o seu pedido.',
+            `- Para efetuar compras em nosso site, basta escolher o produto que deseja e clicar em "Comprar".<br>
+              Alguns produtos poderão ter variações de cor e tamanho. Nestes casos, você deverá selecionar sempre, antes de clicar em comprar, as opções que melhor se adaptam ao seu caso; - Escolhido o produto e clicado em "Comprar", você será direcionado para o Carrinho de Compras. Confira se o produto e o valor estão de acordo com o item que você escolheu. Estando de acordo, informe seu CEP e clique em "Calcular" para calcularmos o custo do seu frete. Escolha uma das opções de frete e clique em "Fechar Pedido"; - O próximo passo é a página de identificação, onde serão solicitados seus dados cadastrais. Se for a sua primeira compra, você será direcionado para a página de cadastro. Se já for nosso cliente, entre com o login e senha e em seguida escolha o endereço de entrega do seu pedido; - O pagamento é a última etapa da sua compra. Confira portanto se todos os dados da sua compra estão corretos (produtos, quantidade, preço, endereço de entrega). Caso alguma informação esteja errada, altere o seu pedido.
+            `,
         },
         {
           id: '2',
