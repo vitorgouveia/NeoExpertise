@@ -232,7 +232,6 @@ const Department: NextPage<{
   }, [virtualProducts, sort])
 
   if (!department) {
-    push("/404")
     return <div>Não encontrei essa página</div>
   }
 
