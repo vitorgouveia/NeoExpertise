@@ -157,14 +157,7 @@ export const Product: FunctionComponent<ProductProps> = ({
 
           <Heading.paragraph>{`(${sold})`}</Heading.paragraph>
         </div>
-        <Heading.paragraph
-          css={{ display: 'flex', alignItems: 'center', gap: '$sizes$50' }}
-        >
-          <span style={{ textDecoration: 'line-through' }}>
-            {currency.format(price)}
-          </span>
-          por
-        </Heading.paragraph>
+        
 
         <Heading.subtitle3 css={{ fontSize: '$h6 !important' }}>
           {currency.format(price)}

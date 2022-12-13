@@ -25,6 +25,60 @@ type Context = trpc.inferAsyncReturnType<typeof createContext>
 
 export const router = trpc
   .router<Context>()
+  .query("list-orders", {
+    input: z.object({
+      id: z.string()
+    }),
+    async resolve({ ctx, input }) {
+      const orders = await ctx.prisma.order.findMany({
+        where: {
+          user: {
+            id: input.id
+          }
+        }
+      })
+
+      return orders
+    }
+  })
+  .query("create-order", {
+    input: z.object({
+      productName: z.string(),
+      price: z.number(),
+      email: z.string().email()
+    }),
+    async resolve({ ctx, input }) {
+      const { productName, price, email }  = input
+
+      const user = await ctx.prisma.user.findFirst({
+        where: {
+          email
+        },
+        select: {
+          id: true
+        }
+      })
+
+      if(!user) {
+        return
+      }
+
+      const order = await ctx.prisma.order.create({
+        data: {
+          productName,
+          price,
+          stauts: "Processando",
+          user: {
+            connect: {
+              id: user.id
+            }
+          }
+        }
+      })
+
+      return order
+    }
+  })
   .query('newsletter-status', {
     input: z.object({
       email: z.string().email(),
@@ -349,35 +403,99 @@ export const router = trpc
   })
   .query('build-your-pc-computer-list', {
     async resolve({ ctx }) {
-      const computers = await ctx.prisma.computer.findMany()
+      // const computers = await ctx.prisma.computer.findMany()
 
-      // i need to reorder elements in a way that the element with prop 'isPrimary' is in the middle
-      // it needs to be independent of the array size
+      // // i need to reorder elements in a way that the element with prop 'isPrimary' is in the middle
+      // // it needs to be independent of the array size
 
-      const primaryComputer = computers.find(
-        ({ isPrimary }) => isPrimary === true
-      )
+      // const primaryComputer = computers.find(
+      //   ({ isPrimary }) => isPrimary === true
+      // )
 
-      if (!primaryComputer) {
-        return computers
-      }
+      // if (!primaryComputer) {
+      //   return computers
+      // }
 
-      const computersWithoutPrimary = computers.filter(
-        ({ isPrimary }) => isPrimary !== true
-      )
+      // const computersWithoutPrimary = computers.filter(
+      //   ({ isPrimary }) => isPrimary !== true
+      // )
 
-      const halfwayThrough = Math.floor(computersWithoutPrimary.length / 2)
+      // const halfwayThrough = Math.floor(computersWithoutPrimary.length / 2)
 
-      const leftSide = computersWithoutPrimary.slice(0, halfwayThrough)
-      const rightSide = computersWithoutPrimary.slice(
-        halfwayThrough,
-        computersWithoutPrimary.length
-      )
+      // const leftSide = computersWithoutPrimary.slice(0, halfwayThrough)
+      // const rightSide = computersWithoutPrimary.slice(
+      //   halfwayThrough,
+      //   computersWithoutPrimary.length
+      // )
 
-      const reorderedComputers = [...leftSide, primaryComputer, ...rightSide]
+      const reorderedComputers = [
+        {
+          slug: "pc-gamer-player-1",
+          name: "PC Gamer P1",
+          description: "Pc gamer com combinações de peça com um olhar mais corsa por cima, apenas o top do top no qual os jogadores números um são",
+          images: [
+            "https://t2.gstatic.com/images?q=tbn:ANd9GcRPyiEPnzBGHVytsxGCgymRhnO-Xx3JWM8-WuS7bi_GZyGqVObL",
+            "https://c4.wallpaperflare.com/wallpaper/903/743/683/msi-corsair-gtx980-cablemods-wallpaper-preview.jpg",
+            "https://c4.wallpaperflare.com/wallpaper/205/568/855/asus-computer-electronic-gamer-wallpaper-preview.jpg",
+            "https://c4.wallpaperflare.com/wallpaper/205/568/855/asus-computer-electronic-gamer-wallpaper-preview.jpg"
+          ],
+          isPrimary: false,
+          createdAt: new Date().getTime(),
+          updatedAt: new Date().getTime(),
+        },
+        {
+          slug: "pc-rainbow-gaming",
+          name: "PC Gamer INCLUSIVO",
+          description: "Para aqueles que são amantes de arco-íris, onde acreditam no leprechaun e em unicórnios mágicos! Desperte a princesa em você!",
+          images: [
+            "https://i.pinimg.com/564x/29/c5/17/29c5176f1f964325ae472e7a0c635194.jpg",
+            "https://i.pinimg.com/564x/da/12/46/da124628f4d9dc0c593a0fd8d92392b5.jpg",
+            "https://i.pinimg.com/564x/96/99/88/9699880643dbba2d7edefe90330dfa6b.jpg",
+            "https://i.pinimg.com/564x/ae/6d/fd/ae6dfd23d2b20d5d7e9a9c8bfc554bd6.jpg"
+          ],
+          isPrimary: true,
+          createdAt: new Date().getTime(),
+          updatedAt: new Date().getTime(),
+        },
+        {
+          slug: "pc-gamer-player-4",
+          name: "PC Gamer P4",
+          description: " A SUS gaming station, para aqueles que se disfarçam de aliados de um time e esse time desconfia de qualquer um. Aliás não foi uma dos criadores do Among Us.",
+          images: [
+            "https://c4.wallpaperflare.com/wallpaper/707/916/1023/computer-asus-pc-gaming-technology-wallpaper-preview.jpg",
+            "https://c4.wallpaperflare.com/wallpaper/707/916/1023/computer-asus-pc-gaming-technology-wallpaper-preview.jpg",
+            "https://c4.wallpaperflare.com/wallpaper/707/916/1023/computer-asus-pc-gaming-technology-wallpaper-preview.jpg",
+            "https://c4.wallpaperflare.com/wallpaper/707/916/1023/computer-asus-pc-gaming-technology-wallpaper-preview.jpg"
+          ],
+          isPrimary: false,
+          createdAt: new Date().getTime(),
+          updatedAt: new Date().getTime(),
+        },
+      ]
 
       return reorderedComputers
     },
+  })
+  .query("get-products-by-subcategory", {
+    input: z.object({
+      slug: z.string()
+    }),
+    async resolve({ ctx, input }) {
+      const products = await ctx.prisma.product.findMany({
+        where: {
+          department: {
+            subDepartments: {
+              some: {
+                slug: input.slug
+              }
+            }
+          }
+        }
+      })
+
+      console.log(products)
+      return []
+    }
   })
   .query('get-homepage-slides', {
     async resolve({ ctx }) {

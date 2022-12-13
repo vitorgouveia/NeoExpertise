@@ -49,6 +49,9 @@ const Row = styled('div', {
 const Perfil: NextPage<{ email: string }> = ({ email: initialEmail }) => {
   const { route } = useRouter()
 
+  const userDetails = trpc.useQuery(["user-details", {
+    email: initialEmail
+  }])
   const [emailField, setEmailField] = useState(initialEmail || '')
   const signNewsletter = trpc.useMutation(['toggle-sign-newsletter'])
   const newsLetterStatus = trpc.useQuery([
@@ -94,7 +97,9 @@ const Perfil: NextPage<{ email: string }> = ({ email: initialEmail }) => {
 
         <Section title="Histórico de Compras" description="">
           <Row>
-            {/* have a .map here to list all payment options and hability to remove one and each of them */}
+            {userDetails.isLoading ? null : (
+              <OrderList id={userDetails?.data?.id} />
+            )}
           </Row>
         </Section>
       </Container>
@@ -152,6 +157,31 @@ function StatusBar() {
     </StatusBarRoot>
   )
 }
+
+
+function OrderList({ id }: { id: string | undefined }) {
+  const { data: orders, isLoading } = trpc.useQuery(["list-orders", {
+    id: id || ""
+  }])
+
+  if(isLoading) {
+    return null
+  }
+
+  return (
+    <div>
+      {orders?.map(({ id, price, productName, stauts }) => (
+        <div key={id}>
+          id: {id} <br />
+          price: {price} <br />
+          name: {productName} <br />
+          status: {stauts} <br />
+        </div>
+      ))}
+    </div>
+  )
+}
+
 
 export default Perfil
 

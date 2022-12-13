@@ -233,7 +233,7 @@ const Product: NextPage<{
               css={{ flex: 1, background: '$primaryNormal', border: 'none' }}
               onClick={async () => {
                 if (status !== 'authenticated') {
-                  return
+                  return push("/login")
                 }
                 const body = JSON.stringify({
                   email: userdata?.user?.email,
@@ -327,12 +327,79 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   })
 
   if (!product) {
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false,
+    // search gaming pc
+    const pc = [
+      {
+        slug: "pc-gamer-player-1",
+        name: "PC Gamer P1",
+        description: "Pc gamer com combinações de peça com um olhar mais corsa por cima, apenas o top do top no qual os jogadores números um são",
+        images: [
+          "https://t2.gstatic.com/images?q=tbn:ANd9GcRPyiEPnzBGHVytsxGCgymRhnO-Xx3JWM8-WuS7bi_GZyGqVObL",
+          "https://c4.wallpaperflare.com/wallpaper/903/743/683/msi-corsair-gtx980-cablemods-wallpaper-preview.jpg",
+          "https://c4.wallpaperflare.com/wallpaper/205/568/855/asus-computer-electronic-gamer-wallpaper-preview.jpg",
+          "https://c4.wallpaperflare.com/wallpaper/205/568/855/asus-computer-electronic-gamer-wallpaper-preview.jpg"
+        ],
+        isPrimary: false,
+        createdAt: new Date().getTime(),
+        updatedAt: new Date().getTime(),
       },
-      props: {},
+      {
+        slug: "pc-rainbow-gaming",
+        name: "PC Gamer INCLUSIVO",
+        description: "Para aqueles que são amantes de arco-íris, onde acreditam no leprechaun e em unicórnios mágicos! Desperte a princesa em você!",
+        images: [
+          "https://i.pinimg.com/564x/29/c5/17/29c5176f1f964325ae472e7a0c635194.jpg",
+          "https://i.pinimg.com/564x/da/12/46/da124628f4d9dc0c593a0fd8d92392b5.jpg",
+          "https://i.pinimg.com/564x/96/99/88/9699880643dbba2d7edefe90330dfa6b.jpg",
+          "https://i.pinimg.com/564x/ae/6d/fd/ae6dfd23d2b20d5d7e9a9c8bfc554bd6.jpg"
+        ],
+        isPrimary: true,
+        createdAt: new Date().getTime(),
+        updatedAt: new Date().getTime(),
+      },
+      {
+        slug: "pc-gamer-player-4",
+        name: "PC Gamer P4",
+        description: " A SUS gaming station, para aqueles que se disfarçam de aliados de um time e esse time desconfia de qualquer um. Aliás não foi uma dos criadores do Among Us.",
+        images: [
+          "https://c4.wallpaperflare.com/wallpaper/707/916/1023/computer-asus-pc-gaming-technology-wallpaper-preview.jpg",
+          "https://c4.wallpaperflare.com/wallpaper/707/916/1023/computer-asus-pc-gaming-technology-wallpaper-preview.jpg",
+          "https://c4.wallpaperflare.com/wallpaper/707/916/1023/computer-asus-pc-gaming-technology-wallpaper-preview.jpg",
+          "https://c4.wallpaperflare.com/wallpaper/707/916/1023/computer-asus-pc-gaming-technology-wallpaper-preview.jpg"
+        ],
+        isPrimary: false,
+        createdAt: new Date().getTime(),
+        updatedAt: new Date().getTime(),
+      },
+    ].find(pc => pc.slug === String(productSlug))
+
+    if(!pc) {
+      return {
+        redirect: {
+          destination: '/',
+          permanent: false,
+        },
+      }
+    }
+
+    return {
+      props: {
+        product: {
+          name: pc.name,
+          price: 2759.99,
+          images: pc.images,
+          rating: 5,
+          sold: 32,
+          slug: pc.slug,
+          id: "",
+          description: pc?.description,
+          blurredImages: [],
+          departmentSlug: "",
+          stripeId: "",
+          createdAt: pc?.createdAt,
+          updatedAt: pc?.updatedAt
+        }
+      },
     }
   }
 

@@ -274,7 +274,7 @@ function MobileDepartmentPills() {
 
 const DepartmentCard = styled('a', {
   // width: '100%',
-  width: '350px',
+  width: '100%',
   height: '100%',
   borderRadius: '8px',
   position: 'relative',
@@ -331,7 +331,7 @@ function Departments() {
   const { data: departmentsCount } = trpc.useQuery(['count-departments'])
 
   const { data: departments, isLoading } = trpc.useQuery([
-    'most-famous-departments',
+    'departments',
   ])
 
   if (isLoading) {
@@ -349,6 +349,7 @@ function Departments() {
     >
       <SectionHeader
         style={{
+          width: "100%",
           display: 'flex',
           flexDirection: 'column',
         }}
@@ -371,10 +372,10 @@ function Departments() {
 
         <div
           style={{
+            width: "100%",
             display: 'flex',
-            flexWrap: 'wrap',
             gap: '1rem',
-            justifyContent: 'center',
+            justifyContent: 'space-between',
             // flexDirection: 'column',
           }}
         >
@@ -560,7 +561,7 @@ function Brands() {
             style={{
               width: '130px !important',
               flexShrink: '0',
-              height: '70px !important',
+              height: '150px !important',
               background: backgroundColor,
               display: 'grid',
               placeItems: 'center',
@@ -574,7 +575,7 @@ function Brands() {
                   style={{
                     width: 'auto',
                     maxWidth: '80px',
-                    height: '50px',
+                    height: '70px',
                     objectFit: 'contain',
                   }}
                   src={brandLogoUrl}
@@ -677,7 +678,7 @@ const Computer: FunctionComponent<{
       <img src={coverImage} alt={`Image of the ${name} gaming PC`} />
       <Heading.subtitle2>{name}</Heading.subtitle2>
       <Heading.paragraph>{description}</Heading.paragraph>
-      <Link href={`/pc-gamer/${slug}`} passHref>
+      <Link href={`/produto/${slug}`} passHref>
         <Button
           css={
             isPrimary
@@ -690,7 +691,7 @@ const Computer: FunctionComponent<{
           variant="outlined"
           as="a"
         >
-          <Heading.subtitle3>Personalizar</Heading.subtitle3>
+          <Heading.subtitle3>Comprar</Heading.subtitle3>
         </Button>
       </Link>
     </ComputerRoot>
@@ -749,9 +750,9 @@ function BuildYourPC() {
           '@tablet': { display: 'flex' },
         }}
       >
-        {computers?.map(({ id, images, ...props }) => (
+        {computers?.map(({ images, ...props }, index) => (
           <Computer
-            key={id}
+            key={index}
             coverImage={images[0]}
             css={
               props.isPrimary
@@ -766,17 +767,6 @@ function BuildYourPC() {
           />
         ))}
       </ComputerList>
-
-      <Link href="/pc-gamer" passHref>
-        <Button
-          variant="outlined"
-          className="mobile-build-pc-button"
-          css={{ borderColor: '$primaryNormal' }}
-          as="a"
-        >
-          <Heading.subtitle3>Montar meu PC</Heading.subtitle3>
-        </Button>
-      </Link>
     </SectionRoot>
   ) : null
 }

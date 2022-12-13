@@ -10,6 +10,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Order {
+  id String @id @default(uuid())
+
+  productName String
+  price Int
+  stauts String
+
+  userId String
+  user User @relation(fields: [userId], references: [id])
+}
+
 model Product {
   id String @id @default(uuid())
 
@@ -176,6 +187,7 @@ model User {
   coverImage    String?
   accounts      Account[]
   sessions      Session[]
+  orders Order[]
   hasNewsletter Boolean   @default(false)
 
   createdAt DateTime  @default(now())

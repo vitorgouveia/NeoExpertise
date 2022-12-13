@@ -293,7 +293,7 @@ const Department: NextPage<{
                   </Heading.subtitle3>
                 </Link>
 
-                <ul>
+                {/* <ul>
                   {subDepartments.map(({ slug: subSlug, name: subName }) => (
                     <li
                       key={subSlug}
@@ -309,7 +309,7 @@ const Department: NextPage<{
                       </Link>
                     </li>
                   ))}
-                </ul>
+                </ul> */}
               </DepartmentRoot>
             ))}
           </AllDepartments>

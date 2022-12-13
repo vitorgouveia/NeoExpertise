@@ -62,6 +62,7 @@ function formataCPF(cpf: string) {
 
 type CheckoutProps = {
   cpf: string
+  userId: string
   cart: (Omit<Product, 'createdAt' | 'updatedAt'> & {
     brand: {
       name: string
@@ -102,6 +103,7 @@ const Checkout: NextPage<CheckoutProps> = ({
   cpf,
   cart: initialCart,
   addresses,
+  userId
 }) => {
   const [selected_shipping, setSelectedShipping] = useState(shipping_data[0].id) // value used to approximate the delivery date
   const [selected_payment, setSelectedPayment] = useState(payment_options[0].id)
@@ -266,7 +268,7 @@ const Checkout: NextPage<CheckoutProps> = ({
               )}
           </SectionRoot>
 
-          <SectionRoot>
+          {/* <SectionRoot>
             <SectionHeader>
               <Heading.subtitle2>Opções De Envio</Heading.subtitle2>
             </SectionHeader>
@@ -326,9 +328,9 @@ const Checkout: NextPage<CheckoutProps> = ({
                 )
               })}
             </Div>
-          </SectionRoot>
+          </SectionRoot> */}
 
-          <SectionRoot>
+          {/* <SectionRoot>
             <SectionHeader css={{ justifyContent: 'space-between' }}>
               <Heading.subtitle2>CPF</Heading.subtitle2>
 
@@ -350,9 +352,9 @@ const Checkout: NextPage<CheckoutProps> = ({
                 </Link>
               </Div>
             </SectionHeader>
-          </SectionRoot>
+          </SectionRoot> */}
 
-          <SectionRoot>
+          {/* <SectionRoot>
             <SectionHeader css={{ justifyContent: 'space-between' }}>
               <Heading.subtitle2>Opção De Pagamento</Heading.subtitle2>
 
@@ -400,7 +402,7 @@ const Checkout: NextPage<CheckoutProps> = ({
                 </Select.SelectContent>
               </Select.Select>
             </SectionHeader>
-          </SectionRoot>
+          </SectionRoot> */}
 
           <SectionRoot>
             <SectionHeader css={{ justifyContent: 'space-between' }}>
@@ -516,7 +518,7 @@ const Checkout: NextPage<CheckoutProps> = ({
                     currency: 'brl',
                     product_data: {
                       name,
-                      images,
+                      images: [images[0]],
                     },
                     unit_amount: Number((price * 100).toFixed(0)),
                   },
@@ -547,16 +549,18 @@ const Checkout: NextPage<CheckoutProps> = ({
                     },
                     body: JSON.stringify({
                       line_items: JSON.stringify(line_items),
-                      success_url: `${window.location.origin}`,
-                      cancel_url: window.location.href,
+                      success_url: `${window.location.origin}/`,
+                      cancel_url: `${window.location.href}/`,
+                      userId
                     }),
                   })
-
+                  console.log("shit")
                   const data = await response.json()
 
                   window.location = data.url
                 } catch (error) {
                   console.log('error')
+                  console.error(error)
                   alert('Alguma coisa deu errado!')
                 }
               }}
@@ -633,6 +637,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       })),
       cpf: '53094769896',
       addresses: user.addresses,
+      userId: user.id,
       // cpf: user.cpf,
     },
   }
